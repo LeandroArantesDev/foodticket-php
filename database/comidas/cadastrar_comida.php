@@ -20,24 +20,33 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
+    try {
+        $insert = "INSERT INTO comidas (nome, descricao, preco, ingredientes, imagem, id_usuario, id_categoria) VALUE (?,?,?,?,?,?,?)";
+        $stmt = $conexao->prepare($insert);
 
-    $insert = "INSERT INTO comidas (nome, descricao, preco, ingredientes, imagem, id_usuario, id_categoria) VALUE (?,?,?,?,?,?,?)";
-    $stmt = $conexao->prepare($insert);
+        if ($stmt) {
+            $stmt->bind_param("sssssii", $nome, $descricao, $preco, $ingredientes, $imagem, $id_usuario, $id_categoria);
+            $resultado = $stmt->execute();
+            $stmt->close();
 
-    if ($stmt) {
-        $stmt->bind_param("sssssii", $nome, $descricao, $preco, $ingredientes, $imagem, $id_usuario, $id_categoria);
-        $resultado = $stmt->execute();
-        $stmt->close();
-
-        $_SESSION['resposta'] = "Produto cadastrado com sucesso!";
-        header("Location: ../../admin/comidas/comidas.php");
-        $stmt = null;
-        exit;
-    } else {
-        $_SESSION['resposta'] = "Ocorreu um erro!";
-        header("Location: ../../admin/comidas/comidas.php");
-        $stmt = null;
-        exit;
+            $_SESSION['resposta'] = "Produto cadastrado com sucesso!";
+            header("Location: ../../admin/comidas/comidas.php");
+            $stmt = null;
+            exit;
+        } else {
+            $_SESSION['resposta'] = "Ocorreu um erro!";
+            header("Location: ../../admin/comidas/comidas.php");
+            $stmt = null;
+            exit;
+        }
+    } catch (Exception $erro) {
+        registrarErro(trim($_SESSION["id"]), $erro->getCode(), "Cadastrar comida");
+        switch ($erro->getCode()) {
+            default:
+                $_SESSION['resposta'] = "error" . $erro->getCode();
+                header("Location: ../../admin/comidas/comidas.php");
+                exit;
+        }
     }
 } else {
     $_SESSION['resposta'] = "Método de solicitação ínvalido!";

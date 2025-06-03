@@ -243,3 +243,18 @@ function formatarPreco($numero)
 {
     return 'R$ ' . number_format($numero, 2, ',', '.');
 }
+
+
+function registrarErro($id_usuario, $erro, $origem)
+{
+    global $conexao;
+    $insert = "INSERT INTO erros (id_usuario, erro, origem) VALUES (?,?,?)";
+    $stmt = $conexao->prepare($insert);
+    $stmt->bind_param("iss", $id_usuario, $erro, $origem);
+
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}

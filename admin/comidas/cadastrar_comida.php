@@ -46,13 +46,13 @@ include("../../database/funcoes.php");
                 <select name="id_categoria" id="id_categoria" required>
                     <option value="">-- Selecione uma categoria --</option>
                     <?php
-            $sqlCategoria = "SELECT id, nome FROM categorias";
-            $resultadoCategoria = $conexao->query($sqlCategoria);
-            while ($rowCategoria = $resultadoCategoria->fetch_assoc()):
-            ?>
-                    <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>">
-                        <?= htmlspecialchars($rowCategoria["nome"]) ?>
-                    </option>
+                    $sqlCategoria = "SELECT id, nome FROM categorias";
+                    $resultadoCategoria = $conexao->query($sqlCategoria);
+                    while ($rowCategoria = $resultadoCategoria->fetch_assoc()):
+                    ?>
+                        <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>">
+                            <?= htmlspecialchars($rowCategoria["nome"]) ?>
+                        </option>
                     <?php endwhile; ?>
                 </select>
             </div>
@@ -70,7 +70,7 @@ include("../../database/funcoes.php");
                     title="Informe uma URL válida (ex: https://exemplo.com/imagem.jpg)">
             </div>
 
-            <button type="submit">Editar</button>
+            <button type="submit">Cadastrar</button>
         </form>
 
         <a href="comidas.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Cancelar edição</a>

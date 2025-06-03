@@ -68,10 +68,10 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
                 header("Location: ../../registrar.php");
                 exit;
             }
-        } catch (Exception $erro_email) {
-
+        } catch (Exception $erro) {
+            registrarErro(trim($_SESSION["id"]), $erro->getCode(), "Registrar usuário");
             // Caso houver erro ele retorna
-            switch ($erro_email->getCode()) {
+            switch ($erro->getCode()) {
                 // erro de email duplicado código 1062
                 case 1062:
                     $_SESSION['resposta'] = "Email já cadastrado!";
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
                     exit;
 
                 default:
-                    $_SESSION['resposta'] = "error" . $erro_email->getCode();
+                    $_SESSION['resposta'] = "error" . $erro->getCode();
                     header("Location: ../../registrar.php");
                     exit;
             }

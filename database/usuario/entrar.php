@@ -52,18 +52,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 header("Location: ../../entrar.php");
                 exit;
             }
-        } catch (Exception $erro_email) {
-
+        } catch (Exception $erro) {
+            registrarErro(trim($_SESSION["id"]), $erro->getCode(), "Entrar com usuário");
             // Caso houver erro ele retorna
-            switch ($erro_email->getCode()) {
+            switch ($erro->getCode()) {
                 // erro de quantidade de paramêtros erro
                 case 1136:
                     $_SESSION['resposta'] = "Quantidade de dados inseridos inválida!";
                     header("Location: ../../entrar.php");
                     exit;
-
                 default:
-                    $_SESSION['resposta'] = "error" . $erro_email->getCode();
+                    $_SESSION['resposta'] = "error" . $erro->getCode();
                     header("Location: ../../entrar.php");
                     exit;
             }
