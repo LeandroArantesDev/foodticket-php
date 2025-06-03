@@ -83,7 +83,7 @@ require_once("database/conexao.php");
                                             </p>
                                         </div>
                                     </div>
-                                    <?php if (isset($_SESSION["nome"])): ?>
+                                    <?php if (isset($_SESSION["nome"]) && $_SESSION["admin"] == 1): ?>
                                         <form action="database/usuario/imprimir_etiqueta.php" method="post" target="_blank">
                                             <input type="hidden" name="idUsuario" value="<?= htmlspecialchars($_SESSION["id"]) ?>">
                                             <input type="hidden" name="idComida" value="<?= htmlspecialchars($id) ?>">
