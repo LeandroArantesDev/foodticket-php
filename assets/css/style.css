@@ -1,0 +1,68 @@
+html {
+    font-size: 62.5%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+    background-color: var(--cinza-claro);
+}
+
+.interface {
+    max-width: 128rem;
+    width: 100%;
+}
+
+:root {
+    /* Cores principais */
+    --branco: #fcfcfc;
+    --cinza-claro: #eeeeee;
+    --cinza-claro-hover: #e0e0e0;
+    --cinza-escuro: #1f2127;
+
+    /* Cores de texto */
+    --texto-branco: #fcfcfc;
+    --texto-cinza-claro: #6b6b6b;
+    --texto-cinza-escuro: #14151a;
+    --texto-vermelho: #bd3d3d;
+    --texto-azul: #1a203d;
+    /* Inputs */
+    --input-cinza-claro: #bdbdbd;
+
+    /* Bordas */
+    --borda-cinza-claro: #d4d4d4;
+}
+
+/* Footer */
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100dvw;
+    height: 7rem;
+
+    & p {
+        margin: 0;
+        font-size: 1.2rem;
+        color: var(--cinza-escuro);
+
+        & a {
+            text-decoration: none;
+            color: var(--cinza-escuro);
+        }
+    }
+
+    & .direitos {
+        font-size: 1.3rem;
+    }
+}
+
+/* Footer */
