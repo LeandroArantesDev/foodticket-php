@@ -217,12 +217,17 @@ function validarCSRF($csrf)
 
 function validarNome($nome)
 {
-    if (!preg_match('/^[a-zA-Z0-9]{3,20}$/', $nome)) {
+    // Remove espaços no início/fim e valida com regex
+    $nome = trim($nome);
+
+    // Regex: letras (com acento), espaço, mínimo 3 e máximo 50 caracteres
+    if (!preg_match('/^[\p{L} ]{3,50}$/u', $nome)) {
         return false;
     }
 
     return true;
 }
+
 
 function validarSenha($senha)
 {
