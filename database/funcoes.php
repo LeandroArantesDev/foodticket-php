@@ -108,7 +108,7 @@ function gerarEtiquetasPDF(string $nome, int $quantidade)
 {
     if ($quantidade < 1) $quantidade = 1;
 
-    $width = 43; // caracteres por linha
+    $width = 34; // caracteres por linha
     $larguraEtiqueta = 80; // mm
     $alturaEtiqueta = 30; // mm
 
@@ -123,7 +123,8 @@ function gerarEtiquetasPDF(string $nome, int $quantidade)
         $borderLine = str_repeat('*', $width);
         $pdf->Cell(0, 3, converte($borderLine), 0, 1, "C");
 
-        printComBorda($pdf, "ARRAIA ETEC", $width);
+        printComBorda($pdf, "ARRAIA ETEC 2025", $width);
+        printComBorda($pdf, "VALE 1", $width);
         printComBorda($pdf, $nome, $width);
 
         $pdf->Cell(0, 3, converte($borderLine), 0, 1, "C");
@@ -154,6 +155,7 @@ function printComBorda($pdf, $text, $width)
     $line = '*' . str_repeat(' ', $leftSpaces) . $text . str_repeat(' ', $rightSpaces) . '*';
     $pdf->Cell(0, 3, converte($line), 0, 1, "C");
 }
+
 
 function buscarNomeUsuário($id)
 {
