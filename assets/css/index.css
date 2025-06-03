@@ -4,7 +4,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100dvw;
+    width: 100%;
     height: 7rem;
     background-color: white;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
@@ -75,8 +75,8 @@ main {
     display: flex;
     align-items: baseline;
     justify-content: center;
-    width: 100dvw;
-    min-height: calc(100dvh - 14rem);
+    width: 100%;
+    min-height: calc(100vh - 14rem);
 
     & .interface {
         display: flex;
@@ -242,3 +242,20 @@ main {
 }
 
 /* Main */
+
+/* ACESSIBILIDADE PARA CELULAR */
+
+@media (min-width: 0px) and (max-width: 720px) {
+
+    header {
+        padding: 0 1rem;
+    }
+
+    main {
+        & .interface {
+            & .container-cards {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    }
+}
