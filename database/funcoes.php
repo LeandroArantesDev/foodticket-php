@@ -238,3 +238,8 @@ function validarSenha($senha)
 
     return true;
 }
+
+function formatarPreco($numero)
+{
+    return 'R$ ' . number_format($numero, 2, ',', '.');
+}

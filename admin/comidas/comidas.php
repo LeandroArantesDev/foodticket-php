@@ -55,7 +55,7 @@ include("../../auth/validar_sessao.php");
                                 <div class="informacoes">
                                     <p class="nome"><?= htmlspecialchars($nome) ?></p>
                                     <p class="descricao"><?= htmlspecialchars($descricao) ?></p>
-                                    <p class="preco">R$<?= htmlspecialchars($preco) ?></p>
+                                    <p class="preco"><?= htmlspecialchars(formatarPreco($preco)) ?></p>
                                     <p class="ingredientes"><span>Ingredientes: </span><?= htmlspecialchars($ingredientes) ?>
                                     </p>
                                 </div>
