@@ -12,20 +12,14 @@ include("../../database/funcoes.php");
     <link rel="stylesheet" href="../../assets/css/usuarios.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/mensagem.css">
-    <title>Sistema de Fichas | Categorias</title>
+    <title>FoodTickets | Usuários</title>
 </head>
 
 <body>
     <header>
         <div class="interface">
-            <div class="logo">
-                <div class="icon">
-                    <i class="fa-solid fa-ticket"></i>
-                </div>
-                <div class="nome">
-                    <p>Sistemas de Fichas</p>
-                </div>
-            </div>
+            <a href="../dashboard.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar
+                para Dashboard</a>
             <nav class="links">
                 <a href="../../auth/sair.php" target="_self">Sair</a>
             </nav>
@@ -35,11 +29,10 @@ include("../../database/funcoes.php");
         <div class="interface">
             <div class="botoes">
                 <div class="nome">
-                    <h1>Gerenciar de vendas</h1>
-                    <p>Gerencie as vendas feitas</p>
+                    <h1>Gerenciar usuários</h1>
+                    <p>Gerencie os usuários cadastrados</p>
                 </div>
-                <a href="../dashboard.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar
-                    para Dashboard</a>
+                <a href="cadastrar_usuario.php">Adicionar<i class="fa-solid fa-plus"></i></a>
             </div>
             <?php
             $select = "SELECT id, nome, email, admin FROM usuarios";
@@ -49,41 +42,41 @@ include("../../database/funcoes.php");
             $stmt->bind_result($id, $nome, $email, $admin);
             if ($stmt->num_rows >= 1):
             ?>
-                <div class="container-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Nível de acesso</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <?php
+            <div class="container-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Nível de acesso</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <?php
                         while ($stmt->fetch()):
                         ?>
-                            <tbody>
-                                <tr>
-                                    <td><?= htmlspecialchars($id) ?></td>
-                                    <td><?= htmlspecialchars($nome) ?></td>
-                                    <td><?= htmlspecialchars($email) ?></td>
-                                    <td><?= ($admin == 1) ? "Admin" : "Usuário" ?></td>
-                                    <td class="buttons">
-                                        <form action="editar_usuario.php" method="post">
-                                            <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
-                                            <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        </form>
-                                        <?php if ($_SESSION["id"] !== $id): ?>
-                                            <form action="../../database/usuario/deletar_usuario.php" method="post"
-                                                onclick="return confirm('Tem certeza que quer deletar?')">
-                                                <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
-                                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                                            </form>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                            </tbody>
+                    <tbody>
+                        <tr>
+                            <td><?= htmlspecialchars($id) ?></td>
+                            <td><?= htmlspecialchars($nome) ?></td>
+                            <td><?= htmlspecialchars($email) ?></td>
+                            <td><?= ($admin == 1) ? "Caixa" : (($admin == 2) ? "Admin" : "Usuário") ?></td>
+                            <td class="buttons">
+                                <form action="editar_usuario.php" method="post">
+                                    <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                    <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                </form>
+                                <?php if ($_SESSION["id"] !== $id): ?>
+                                <form action="../../database/usuario/deletar_usuario.php" method="post"
+                                    onclick="return confirm('Tem certeza que quer deletar?')">
+                                    <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                </form>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    </tbody>
 
                     <?php
                         endwhile;
@@ -92,7 +85,7 @@ include("../../database/funcoes.php");
                         echo '<p class="p-erro">Nenhuma venda cadastrada!</p>';
                     endif;
                     ?>
-                </div>
+            </div>
         </div>
     </main>
     <footer>

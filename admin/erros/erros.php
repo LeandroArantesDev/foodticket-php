@@ -9,7 +9,7 @@ include("../../database/funcoes.php");
     <meta charset="Utd-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/vendas.css">
+    <link rel="stylesheet" href="../../assets/css/erros.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/mensagem.css">
     <title>Sistema de Fichas | Categorias</title>
@@ -29,19 +29,19 @@ include("../../database/funcoes.php");
         <div class="interface">
             <div class="botoes">
                 <div class="nome">
-                    <h1>Gerenciar vendas</h1>
-                    <p>Gerencie as vendas feitas</p>
+                    <h1>Gerenciar erros</h1>
+                    <p>Gerencie as erros acusados</p>
                 </div>
-                <a href="../../database/vendas/deletartudo_venda.php"
+                <a href="../../database/erros/deletartudo_erros.php"
                     onclick="return confirm('Tem certeza que quer deletar TUDO?')">Deletar tudo<i
                         class="fa-solid fa-trash"></i></a>
             </div>
             <?php
-            $select = "SELECT id, id_usuario, id_comida, quantidade, preco_unitario, data_venda FROM vendas";
+            $select = "SELECT id, id_usuario, erro, origem, data_ocorrido FROM erros";
             $stmt = $conexao->prepare($select);
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($id, $id_usuario, $id_comida, $quantidade, $preco_unitario, $data_venda);
+            $stmt->bind_result($id, $id_usuario, $erro, $origem, $data_ocorrido);
             if ($stmt->num_rows >= 1):
             ?>
                 <div class="container-table">
@@ -50,11 +50,9 @@ include("../../database/funcoes.php");
                             <tr>
                                 <th>ID</th>
                                 <th>Usuário</th>
-                                <th>Comida</th>
-                                <th>Quantidade</th>
-                                <th>Preço vendido</th>
-                                <th>Data da venda</th>
-                                <th>Ações</th>
+                                <th>Erro</th>
+                                <th>Origem</th>
+                                <th>Data do ocorrido</th>
                             </tr>
                         </thead>
                         <?php
@@ -64,19 +62,9 @@ include("../../database/funcoes.php");
                                 <tr>
                                     <td><?= htmlspecialchars($id) ?></td>
                                     <td><?= htmlspecialchars(buscarNomeUsuário($id_usuario)) ?></td>
-                                    <td><?= htmlspecialchars(buscarNomeComida($id_comida)) ?></td>
-                                    <td><?= htmlspecialchars($quantidade) ?></td>
-                                    <td><?= htmlspecialchars($preco_unitario) ?></td>
-                                    <td><?= htmlspecialchars($data_venda) ?></td>
-                                    <td class="buttons">
-                                        <?php if ($_SESSION["admin"] == 2): ?>
-                                            <form action="../../database/vendas/deletar_venda.php" method="post"
-                                                onclick="return confirm('Tem certeza que quer deletar?')">
-                                                <input type="hidden" name="id_venda" value="<?= htmlspecialchars($id) ?>">
-                                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                                            </form>
-                                        <?php endif; ?>
-                                    </td>
+                                    <td><?= htmlspecialchars($erro) ?></td>
+                                    <td><?= htmlspecialchars($origem) ?></td>
+                                    <td><?= htmlspecialchars($data_ocorrido) ?></td>
                                 </tr>
                             </tbody>
 

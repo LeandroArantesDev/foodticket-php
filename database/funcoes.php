@@ -263,7 +263,7 @@ function registrarErro($id_usuario, $erro, $origem)
 
 function validarAdmin($valor)
 {
-    if ($valor !== 0 || $valor !== 1) {
+    if ($valor < 0 || $valor > 2) {
         return false;
     }
     return true;

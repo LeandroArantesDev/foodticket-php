@@ -19,7 +19,7 @@ include("database/funcoes.php");
 <body>
     <header>
         <div class="interface">
-            <?php if (isset($_SESSION["nome"]) && isset($_SESSION["admin"]) && $_SESSION["admin"] == 1): ?>
+            <?php if (isset($_SESSION["nome"]) && isset($_SESSION["admin"]) && $_SESSION["admin"] > 1): ?>
                 <a href="admin/dashboard.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar a
                     Dashboard</a>
             <?php else: ?>
@@ -77,20 +77,24 @@ include("database/funcoes.php");
                                         <div class="informacoes">
                                             <p class="nome"><?= htmlspecialchars($nome) ?></p>
                                             <p class="descricao"><?= htmlspecialchars($descricao) ?></p>
-                                            <p class="preco"><?= htmlspecialchars(formatarPreco($preco)) ?></p>
+                                            <p class="preco" data-preco="<?= htmlspecialchars($preco) ?>">
+                                                <?= htmlspecialchars(formatarPreco($preco)) ?>
+                                            </p>
+
                                             <p class="ingredientes">
                                                 <span>Ingredientes:</span> <?= htmlspecialchars($ingredientes) ?>
                                             </p>
                                         </div>
                                     </div>
-                                    <?php if (isset($_SESSION["nome"]) && $_SESSION["admin"] == 1): ?>
+                                    <?php if (isset($_SESSION["nome"]) && $_SESSION["admin"] > 1): ?>
                                         <form action="database/usuario/imprimir_etiqueta.php" method="post" target="_blank">
                                             <input type="hidden" name="idUsuario" value="<?= htmlspecialchars($_SESSION["id"]) ?>">
                                             <input type="hidden" name="idComida" value="<?= htmlspecialchars($id) ?>">
                                             <input type="hidden" name="nomeComida" value="<?= htmlspecialchars($nome) ?>">
                                             <input type="hidden" name="precoComida" value="<?= htmlspecialchars($preco) ?>">
                                             <label for="quantidadeComida">quantidade</label>
-                                            <input type="number" name="quantidadeComida" id="quantidadeComida" required min="1" value="1">
+                                            <input type="number" name="quantidadeComida" id="quantidadeComida<?= htmlspecialchars($id) ?>"
+                                                required min="1" value="1">
                                             <button><i class="fa-solid fa-print"></i>Imprimir</button>
                                         </form>
                                     <?php endif; ?>
@@ -116,6 +120,29 @@ include("database/funcoes.php");
     <?php
     include("includes/mensagem.php");
     ?>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Seleciona todos os inputs de quantidade
+            const quantidadeInputs = document.querySelectorAll('input[name="quantidadeComida"]');
+
+            quantidadeInputs.forEach(input => {
+                input.addEventListener("input", () => {
+                    const card = input.closest(".card");
+                    const precoElement = card.querySelector(".preco");
+                    const precoUnitario = parseFloat(precoElement.dataset.preco);
+                    const quantidade = parseInt(input.value) || 1;
+
+                    // Calcula o novo valor
+                    const novoValor = precoUnitario * quantidade;
+
+                    // Atualiza o texto exibido
+                    precoElement.textContent = `R$ ${novoValor.toFixed(2).replace('.', ',')}`;
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>

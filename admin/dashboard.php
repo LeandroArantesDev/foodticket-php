@@ -27,7 +27,10 @@ include("../auth/validar_sessao.php");
             </div>
 
             <nav class="links">
+                <?php if ($_SESSION["admin"] > 1): ?>
+                <a href="erros/erros.php">Erros</a>
                 <a href="usuarios/usuarios.php">Usuários</a>
+                <?php endif; ?>
                 <a href="../auth/sair.php" target="_self">Sair</a>
             </nav>
         </div>
@@ -117,10 +120,10 @@ include("../auth/validar_sessao.php");
                         $produto = $row["produto"];
                         $qVendida = $row["quantidade_vendida"];
                     ?>
-                        <div class="produtos">
-                            <p class="item"><?= htmlspecialchars($produto) ?></p>
-                            <p class="vendas"><?= htmlspecialchars($qVendida) ?> vendas</p>
-                        </div>
+                    <div class="produtos">
+                        <p class="item"><?= htmlspecialchars($produto) ?></p>
+                        <p class="vendas"><?= htmlspecialchars($qVendida) ?> vendas</p>
+                    </div>
                     <?php endwhile; ?>
                 </article>
             </div>
