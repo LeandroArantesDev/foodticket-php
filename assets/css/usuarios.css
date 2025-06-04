@@ -150,6 +150,37 @@ main {
                         color: #555;
                         border-bottom: 1px solid #eee;
                     }
+
+                    & button {
+                        border: none;
+                        background-color: var(--branco);
+                        border: 1px solid var(--cinza-claro);
+                        border-radius: 1rem;
+                        padding: 1rem;
+                        cursor: pointer;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 1rem;
+                        font-size: 1.7rem;
+
+                        & .fa-solid.fa-pen-to-square {
+                            color: var(--texto-azul);
+                        }
+
+                        & .fa-solid.fa-trash-can {
+                            color: var(--texto-vermelho);
+                        }
+
+                        &:hover {
+                            background-color: var(--cinza-claro);
+                        }
+                    }
+
+                    & .buttons {
+                        display: flex;
+                        gap: 1rem;
+                    }
                 }
             }
         }

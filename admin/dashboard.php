@@ -25,7 +25,9 @@ include("../auth/validar_sessao.php");
                     <p>Sistemas de Fichas</p>
                 </div>
             </div>
+
             <nav class="links">
+                <a href="usuarios/usuarios.php">Usuários</a>
                 <a href="../auth/sair.php" target="_self">Sair</a>
             </nav>
         </div>

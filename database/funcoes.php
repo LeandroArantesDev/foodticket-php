@@ -260,3 +260,11 @@ function registrarErro($id_usuario, $erro, $origem)
         return false;
     }
 }
+
+function validarAdmin($valor)
+{
+    if ($valor !== 0 || $valor !== 1) {
+        return false;
+    }
+    return true;
+}

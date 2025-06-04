@@ -48,30 +48,30 @@ include("../../auth/validar_sessao.php");
                         $imagem = $row["imagem"];
 
                 ?>
-                        <article class="card">
-                            <div class="item">
-                                <img src="<?= (isset($imagem)) ? $imagem : '../../assets/img/img_padrao.jpg' ?>"
-                                    alt="<?= htmlspecialchars($descricao) ?>">
-                                <div class="informacoes">
-                                    <p class="nome"><?= htmlspecialchars($nome) ?></p>
-                                    <p class="descricao"><?= htmlspecialchars($descricao) ?></p>
-                                    <p class="preco"><?= htmlspecialchars(formatarPreco($preco)) ?></p>
-                                    <p class="ingredientes"><span>Ingredientes: </span><?= htmlspecialchars($ingredientes) ?>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="buttons">
-                                <form action="editar_comida.php" method="post">
-                                    <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
-                                    <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                                </form>
-                                <form action="../../database/comidas/deletar_comida.php" method="post"
-                                    onclick="return confirm('Tem certeza que quer deletar?')">
-                                    <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
-                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                                </form>
-                            </div>
-                        </article>
+                <article class="card">
+                    <div class="item">
+                        <img src="<?= (isset($imagem)) ? $imagem : '../../assets/img/img_padrao.jpg' ?>"
+                            alt="<?= htmlspecialchars($descricao) ?>">
+                        <div class="informacoes">
+                            <p class="nome"><?= htmlspecialchars($nome) ?></p>
+                            <p class="descricao"><?= htmlspecialchars($descricao) ?></p>
+                            <p class="preco"><?= htmlspecialchars(formatarPreco($preco)) ?></p>
+                            <p class="ingredientes"><span>Ingredientes: </span><?= htmlspecialchars($ingredientes) ?>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <form action="editar_comida.php" method="post">
+                            <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
+                            <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
+                        </form>
+                        <form action="../../database/comidas/deletar_comida.php" method="post"
+                            onclick="return confirm('Tem certeza que quer deletar?')">
+                            <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
+                            <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                        </form>
+                    </div>
+                </article>
                 <?php endwhile;
                 else:
                     echo '<p class="nenhum-cadastro">Nenhuma comida cadastrada!</p>';
