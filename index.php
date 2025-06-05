@@ -17,6 +17,7 @@ include("database/funcoes.php");
 </head>
 
 <body>
+    <?php include("includes/loader.php"); ?>
     <?php include("includes/header.php"); ?>
     <main>
         <div class="interface">

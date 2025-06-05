@@ -25,6 +25,7 @@ $stmt->close();
 </head>
 
 <body>
+    <?php include("../../includes/loader.php"); ?>
     <div class="interface">
         <form action="../../database/usuario/editar_usuario.php" method="post">
             <input type="hidden" name="csrf" value="<?= gerarCSRF() ?>">
@@ -71,7 +72,7 @@ $stmt->close();
     <?php
     include("../../includes/mensagem.php");
     ?>
-    <script src="assets/js/valida-formulario.js"></script>
+    <script src="../../assets/js/valida-formulario.js"></script>
 </body>
 
 </html>

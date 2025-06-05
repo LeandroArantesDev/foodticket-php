@@ -16,6 +16,7 @@ include("../../database/funcoes.php");
 </head>
 
 <body>
+    <?php include("../../includes/loader.php"); ?>
     <?php include("../../includes/header.php"); ?>
     <main>
         <div class="interface">
@@ -34,48 +35,48 @@ include("../../database/funcoes.php");
             $stmt->bind_result($id, $nome, $email, $admin);
             if ($stmt->num_rows >= 1):
             ?>
-            <div class="container-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>Nível de acesso</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($stmt->fetch()): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($id) ?></td>
-                            <td><?= htmlspecialchars($nome) ?></td>
-                            <td><?= htmlspecialchars($email) ?></td>
-                            <td><?= ($admin == 1) ? "Caixa" : (($admin == 2) ? "Admin" : "Usuário") ?></td>
-                            <td class="buttons">
-                                <form action="editar_usuario.php" method="post">
-                                    <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
-                                    <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                                </form>
-                                <?php if ($_SESSION["id"] !== $id): ?>
-                                <form action="../../database/usuario/deletar_usuario.php" method="post"
-                                    onclick="return confirm('Tem certeza que quer deletar?')">
-                                    <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
-                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                                </form>
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    </tbody>
+                <div class="container-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Nível de acesso</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($stmt->fetch()): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($id) ?></td>
+                                    <td><?= htmlspecialchars($nome) ?></td>
+                                    <td><?= htmlspecialchars($email) ?></td>
+                                    <td><?= ($admin == 1) ? "Caixa" : (($admin == 2) ? "Admin" : "Usuário") ?></td>
+                                    <td class="buttons">
+                                        <form action="editar_usuario.php" method="post">
+                                            <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                            <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        </form>
+                                        <?php if ($_SESSION["id"] !== $id): ?>
+                                            <form action="../../database/usuario/deletar_usuario.php" method="post"
+                                                onclick="return confirm('Tem certeza que quer deletar?')">
+                                                <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                            </form>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                        </tbody>
 
-                    <?php
+                <?php
                             endwhile;
                             echo '</table>';
                         else:
                             echo '<p class="erro">Nenhum usuário cadastrada!</p>';
                         endif;
                 ?>
-            </div>
+                </div>
         </div>
     </main>
     <footer>

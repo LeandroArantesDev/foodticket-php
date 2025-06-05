@@ -26,6 +26,7 @@ $stmt->close();
 </head>
 
 <body>
+    <?php include("../../includes/loader.php"); ?>
     <div class="interface">
         <form action="../../database/categorias/editar_categoria.php" method="post">
             <div class="logo">

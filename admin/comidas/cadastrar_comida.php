@@ -17,6 +17,7 @@ include("../../database/funcoes.php");
 </head>
 
 <body>
+    <?php include("../../includes/loader.php"); ?>
     <div class="interface">
         <form action="../../database/comidas/cadastrar_comida.php" method="post">
             <input type="hidden" name="csrf" value="<?= gerarCSRF() ?>">
@@ -52,9 +53,9 @@ include("../../database/funcoes.php");
                     $resultadoCategoria = $conexao->query($sqlCategoria);
                     while ($rowCategoria = $resultadoCategoria->fetch_assoc()):
                     ?>
-                        <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>">
-                            <?= htmlspecialchars($rowCategoria["nome"]) ?>
-                        </option>
+                    <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>">
+                        <?= htmlspecialchars($rowCategoria["nome"]) ?>
+                    </option>
                     <?php endwhile; ?>
                 </select>
             </div>

@@ -16,6 +16,7 @@ include("../../auth/validar_sessao.php");
 </head>
 
 <body>
+    <?php include("../../includes/loader.php"); ?>
     <?php include("../../includes/header.php"); ?>
     <main>
         <div class="interface">

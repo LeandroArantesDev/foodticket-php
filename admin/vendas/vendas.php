@@ -17,6 +17,7 @@ include("../../database/funcoes.php");
 </head>
 
 <body>
+    <?php include("../../includes/loader.php"); ?>
     <?php include("../../includes/header.php"); ?>
     <main>
         <div class="interface">
@@ -91,6 +92,8 @@ include("../../database/funcoes.php");
     include("../../includes/mensagem.php");
     ?>
     <script src="../../assets/js/menu-mobile.js"></script>
+    <script src="../../assets/js/valida-formulario.js"></script>
+    <script src="../../assets/js/limitar-formulario.js"></script>
 </body>
 
 </html>

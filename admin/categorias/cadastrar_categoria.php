@@ -17,6 +17,7 @@ include("../../database/funcoes.php");
 </head>
 
 <body>
+    <?php include("../../includes/loader.php"); ?>
     <div class="interface">
         <form action="../../database/categorias/cadastrar_categoria.php" method="post">
             <div class="logo">

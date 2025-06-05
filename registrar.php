@@ -14,6 +14,7 @@ include("database/funcoes.php");
 </head>
 
 <body>
+    <?php include("includes/loader.php"); ?>
     <div class="interface">
         <form action="database/usuario/registrar.php" method="post">
             <input type="hidden" name="csrf" value="<?= gerarCSRF() ?>">

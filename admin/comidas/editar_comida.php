@@ -25,6 +25,7 @@ $stmt->close();
 </head>
 
 <body>
+    <?php include("../../includes/loader.php"); ?>
     <div class="interface">
         <form action="../../database/comidas/editar_comida.php" method="post">
             <input type="hidden" name="csrf" value="<?= gerarCSRF() ?>">
@@ -62,10 +63,10 @@ $stmt->close();
                     $resultadoCategoria = $conexao->query($sqlCategoria);
                     while ($rowCategoria = $resultadoCategoria->fetch_assoc()):
                     ?>
-                        <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>"
-                            <?= ($id_categoria == $rowCategoria["id"]) ? "selected" : "" ?>>
-                            <?= htmlspecialchars($rowCategoria["nome"]) ?>
-                        </option>
+                    <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>"
+                        <?= ($id_categoria == $rowCategoria["id"]) ? "selected" : "" ?>>
+                        <?= htmlspecialchars($rowCategoria["nome"]) ?>
+                    </option>
                     <?php endwhile; ?>
                 </select>
             </div>
