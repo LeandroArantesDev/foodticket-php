@@ -68,7 +68,7 @@ include("database/funcoes.php");
                                             </p>
                                         </div>
                                     </div>
-                                    <?php if (isset($_SESSION["nome"]) && $_SESSION["admin"] > 1): ?>
+                                    <?php if (isset($_SESSION["nome"]) && $_SESSION["admin"] > 0): ?>
                                         <div class="adicionar-carrinho">
                                             <label for="quantidadeComida<?= htmlspecialchars($id) ?>">quantidade</label>
                                             <input type="number" name="quantidadeComida" id="quantidadeComida<?= htmlspecialchars($id) ?>"
