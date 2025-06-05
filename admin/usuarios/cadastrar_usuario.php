@@ -12,15 +12,18 @@ include("../../database/funcoes.php");
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/comidas_editar.css">
-    <link rel="stylesheet" href="../../assets/css/mensagem.css">
+    <link rel="stylesheet" href="../../assets/css/form.css">
     <title>Sistema de Fichas | </title>
 </head>
 
 <body>
     <div class="interface">
-        <p class="acesse">Cadastrar usuário</p>
         <form action="../../database/usuario/cadastrar_usuario.php" method="post">
             <input type="hidden" name="csrf" value="<?= gerarCSRF() ?>">
+            <div class="logo">
+                <img src="../../assets/img/logo_foodticket.svg" alt="Logo do site">
+                <p class="acesse">Cadastrar usuário</p>
+            </div>
 
             <div class="form-group">
                 <label for="nome">Nome</label>
@@ -59,13 +62,14 @@ include("../../database/funcoes.php");
             </div>
 
             <button type="submit">Cadastrar</button>
+            <a href="usuarios.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar ao
+                início</a>
         </form>
-
-        <a href="usuarios.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar ao início</a>
     </div>
     <?php
     include("../../includes/mensagem.php");
     ?>
+    <script src="../../assets/js/valida-formulario.js"></script>
 </body>
 
 </html>

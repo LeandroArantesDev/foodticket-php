@@ -10,45 +10,27 @@ include("database/funcoes.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/img/favicon_foodticket.svg" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/index.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/mensagem.css">
-    <title>Sistema de Fichas | Catálogo</title>
+    <title>FoodTickets | Catálogo</title>
 </head>
 
 <body>
-    <header>
-        <div class="interface">
-            <?php if (isset($_SESSION["nome"]) && isset($_SESSION["admin"]) && $_SESSION["admin"] > 1): ?>
-                <a href="admin/dashboard.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar a
-                    Dashboard</a>
-            <?php else: ?>
-                <div class="logo">
-                    <div class="icon">
-                        <i class="fa-solid fa-ticket"></i>
-                    </div>
-                    <div class="nome">
-                        <p>Sistemas de Fichas</p>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if (!isset($_SESSION["nome"]) && !isset($_SESSION["admin"])): ?>
-                <nav class="links">
-                    <a href="entrar.php" target="_self">Entrar</a>
-                    <a href="registrar.php" target="_self">Registrar-se</a>
-                </nav>
-            <?php else: ?>
-                <nav class="links">
-                    <a href="../auth/sair.php" target="_self">Sair</a>
-                </nav>
-            <?php endif; ?>
-
-
-        </div>
-    </header>
+    <?php include("includes/header.php"); ?>
     <main>
         <div class="interface">
+            <div class="botoes">
+                <div class="nome">
+                    <h1>Cardápio</h1>
+                    <p>Visão de vendas das comidas cadastradas</p>
+                </div>
+                <?php if ((isset($_SESSION["admin"])) && ($_SESSION["admin"] > 0)): ?>
+                    <a href="admin/dashboard.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar
+                        a
+                        Dashboard</a>
+                <?php endif; ?>
+            </div>
             <?php
             $selectCategoria = "SELECT id, nome FROM categorias";
             $stmtCategoria = $conexao->prepare($selectCategoria);
@@ -87,16 +69,14 @@ include("database/funcoes.php");
                                         </div>
                                     </div>
                                     <?php if (isset($_SESSION["nome"]) && $_SESSION["admin"] > 1): ?>
-                                        <form action="database/usuario/imprimir_etiqueta.php" method="post" target="_blank">
-                                            <input type="hidden" name="idUsuario" value="<?= htmlspecialchars($_SESSION["id"]) ?>">
-                                            <input type="hidden" name="idComida" value="<?= htmlspecialchars($id) ?>">
-                                            <input type="hidden" name="nomeComida" value="<?= htmlspecialchars($nome) ?>">
-                                            <input type="hidden" name="precoComida" value="<?= htmlspecialchars($preco) ?>">
-                                            <label for="quantidadeComida">quantidade</label>
+                                        <div class="adicionar-carrinho">
+                                            <label for="quantidadeComida<?= htmlspecialchars($id) ?>">quantidade</label>
                                             <input type="number" name="quantidadeComida" id="quantidadeComida<?= htmlspecialchars($id) ?>"
                                                 required min="1" value="1">
-                                            <button><i class="fa-solid fa-print"></i>Imprimir</button>
-                                        </form>
+                                            <button type="button" class="btn-adicionar-carrinho" data-id="<?= htmlspecialchars($id) ?>"
+                                                data-nome="<?= htmlspecialchars($nome) ?>" data-preco="<?= htmlspecialchars($preco) ?>"><i
+                                                    class="fa-solid fa-cart-plus"></i>Adicionar</button>
+                                        </div>
                                     <?php endif; ?>
                                 </article>
                             <?php endwhile; ?>
@@ -113,6 +93,22 @@ include("database/funcoes.php");
         </div>
 
     </main>
+    <aside id="carrinho-lateral">
+        <div class="cabecalho">
+            <h2>Produtos Selecionados</h2>
+            <button><i class="fa-solid fa-x"></i></button>
+        </div>
+        <ul id="lista-carrinho"></ul>
+        <div class="total-carrinho">
+            <span>Total:</span>
+            <span id="valor-total">R$ 0,00</span>
+        </div>
+        <form id="form-imprimir" action="database/usuario/imprimir_etiqueta.php" method="post" target="_blank"
+            style="display:none;">
+            <input type="hidden" name="itens" id="input-itens">
+            <button type="submit" id="btn-imprimir-tudo"><i class="fa-solid fa-print"></i> Imprimir Tudo</button>
+        </form>
+    </aside>
     <footer>
         <p class="direitos">© 2025 Sistema de Ficha • Todos os direitos reservados</p>
         <p>Feito com ♥ por <a href="https://leandroarantes.com.br/" target="_blank">Leandro Arantes</a></p>
@@ -120,29 +116,8 @@ include("database/funcoes.php");
     <?php
     include("includes/mensagem.php");
     ?>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Seleciona todos os inputs de quantidade
-            const quantidadeInputs = document.querySelectorAll('input[name="quantidadeComida"]');
-
-            quantidadeInputs.forEach(input => {
-                input.addEventListener("input", () => {
-                    const card = input.closest(".card");
-                    const precoElement = card.querySelector(".preco");
-                    const precoUnitario = parseFloat(precoElement.dataset.preco);
-                    const quantidade = parseInt(input.value) || 1;
-
-                    // Calcula o novo valor
-                    const novoValor = precoUnitario * quantidade;
-
-                    // Atualiza o texto exibido
-                    precoElement.textContent = `R$ ${novoValor.toFixed(2).replace('.', ',')}`;
-                });
-            });
-        });
-    </script>
-
+    <script src="assets/js/carrinho.js"></script>
+    <script src="assets/js/menu-mobile.js"></script>
 </body>
 
 </html>

@@ -10,18 +10,20 @@ include("../../database/funcoes.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../../assets/img/favicon_foodticket.svg" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/comidas_editar.css">
-    <link rel="stylesheet" href="../../assets/css/mensagem.css">
+    <link rel="stylesheet" href="../../assets/css/form.css">
     <title>Sistema de Fichas | </title>
 </head>
 
 <body>
     <div class="interface">
-        <p class="acesse">Cadastrar produto</p>
         <form action="../../database/comidas/cadastrar_comida.php" method="post">
             <input type="hidden" name="csrf" value="<?= gerarCSRF() ?>">
-
+            <div class="logo">
+                <img src="../../assets/img/logo_foodticket.svg" alt="Logo do site">
+                <p class="acesse">Cadastrar categoria</p>
+            </div>
             <div class="form-group">
                 <label for="nome">Nome</label>
                 <input type="text" name="nome" id="nome" placeholder="Digite o nome do alimento" required
@@ -71,13 +73,16 @@ include("../../database/funcoes.php");
             </div>
 
             <button type="submit">Cadastrar</button>
+            <a href="comidas.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar ao
+                início</a>
         </form>
 
-        <a href="comidas.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Cancelar edição</a>
+
     </div>
     <?php
     include("../../includes/mensagem.php");
     ?>
+    <script src="../../assets/js/valida-formulario.js"></script>
 </body>
 
 </html>

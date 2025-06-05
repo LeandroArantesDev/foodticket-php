@@ -20,17 +20,19 @@ $stmt->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/usuarios_editar.css">
-    <link rel="stylesheet" href="../../assets/css/mensagem.css">
+    <link rel="stylesheet" href="../../assets/css/form.css">
     <title>Sistema de Fichas | Entrar</title>
 </head>
 
 <body>
     <div class="interface">
-        <p class="acesse">Editar produto</p>
         <form action="../../database/usuario/editar_usuario.php" method="post">
             <input type="hidden" name="csrf" value="<?= gerarCSRF() ?>">
             <input type="hidden" name="id" value="<?= $id_usuario ?>">
+            <div class="logo">
+                <img src="../../assets/img/logo_foodticket.svg" alt="Logo do site">
+                <p class="acesse">Editar usuário</p>
+            </div>
 
             <div class="form-group">
                 <label for="nome">Nome</label>
@@ -60,13 +62,16 @@ $stmt->close();
             </div>
 
             <button type="submit">Editar</button>
+            <a href="usuarios.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar ao
+                início</a>
         </form>
 
-        <a href="usuarios.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Cancelar edição</a>
+
     </div>
     <?php
     include("../../includes/mensagem.php");
     ?>
+    <script src="assets/js/valida-formulario.js"></script>
 </body>
 
 </html>

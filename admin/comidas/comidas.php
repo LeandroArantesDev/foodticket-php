@@ -9,22 +9,14 @@ include("../../auth/validar_sessao.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../../assets/img/favicon_foodticket.svg" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/css/comidas.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/mensagem.css">
-    <title>Comidas</title>
+    <title>FoodTickets | Comidas</title>
 </head>
 
 <body>
-    <header>
-        <div class="interface">
-            <a href="../dashboard.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar
-                para Dashboard</a>
-            <nav class="links">
-                <a href="../../auth/sair.php" target="_self">Sair</a>
-            </nav>
-        </div>
-    </header>
+    <?php include("../../includes/header.php"); ?>
     <main>
         <div class="interface">
             <div class="botoes">
@@ -48,33 +40,33 @@ include("../../auth/validar_sessao.php");
                         $imagem = $row["imagem"];
 
                 ?>
-                <article class="card">
-                    <div class="item">
-                        <img src="<?= (isset($imagem)) ? $imagem : '../../assets/img/img_padrao.jpg' ?>"
-                            alt="<?= htmlspecialchars($descricao) ?>">
-                        <div class="informacoes">
-                            <p class="nome"><?= htmlspecialchars($nome) ?></p>
-                            <p class="descricao"><?= htmlspecialchars($descricao) ?></p>
-                            <p class="preco"><?= htmlspecialchars(formatarPreco($preco)) ?></p>
-                            <p class="ingredientes"><span>Ingredientes: </span><?= htmlspecialchars($ingredientes) ?>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="buttons">
-                        <form action="editar_comida.php" method="post">
-                            <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
-                            <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                        </form>
-                        <form action="../../database/comidas/deletar_comida.php" method="post"
-                            onclick="return confirm('Tem certeza que quer deletar?')">
-                            <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
-                            <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                        </form>
-                    </div>
-                </article>
+                        <article class="card">
+                            <div class="item">
+                                <img src="<?= (isset($imagem)) ? $imagem : '../../assets/img/img_padrao.jpg' ?>"
+                                    alt="<?= htmlspecialchars($descricao) ?>">
+                                <div class="informacoes">
+                                    <p class="nome"><?= htmlspecialchars($nome) ?></p>
+                                    <p class="descricao"><?= htmlspecialchars($descricao) ?></p>
+                                    <p class="ingredientes"><span>Ingredientes: </span><?= htmlspecialchars($ingredientes) ?>
+                                    <p class="preco"><?= htmlspecialchars(formatarPreco($preco)) ?></p>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <form action="editar_comida.php" method="post">
+                                    <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
+                                    <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                </form>
+                                <form action="../../database/comidas/deletar_comida.php" method="post"
+                                    onclick="return confirm('Tem certeza que quer deletar?')">
+                                    <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
+                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                </form>
+                            </div>
+                        </article>
                 <?php endwhile;
                 else:
-                    echo '<p class="nenhum-cadastro">Nenhuma comida cadastrada!</p>';
+                    echo '<p class="erro">Nenhuma comida cadastrada!</p>';
                 endif;
                 ?>
             </div>
@@ -87,6 +79,7 @@ include("../../auth/validar_sessao.php");
     <?php
     include("../../includes/mensagem.php");
     ?>
+    <script src="../../assets/js/menu-mobile.js"></script>
 </body>
 
 </html>

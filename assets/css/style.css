@@ -1,15 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 html {
     font-size: 62.5%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
-* {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 body {
-    box-sizing: border-box;
     background-color: var(--cinza-claro);
 }
 
@@ -22,22 +29,113 @@ body {
 :root {
     /* Cores principais */
     --branco: #fcfcfc;
-    --cinza-claro: #eeeeee;
+    --cinza-claro: #F5F5F5;
     --cinza-claro-hover: #e0e0e0;
-    --cinza-escuro: #1f2127;
+    --cinza-escuro: #333333;
+    --azul: #2196F3;
+    --azul-claro: #a7d7ff;
+    --laranja: #FF9800;
+    --verde: #249127;
+    --hover-azul-claro: #d5e7f7;
+
 
     /* Cores de texto */
     --texto-branco: #fcfcfc;
     --texto-cinza-claro: #6b6b6b;
-    --texto-cinza-escuro: #14151a;
+    --texto-cinza-escuro: #252525;
     --texto-vermelho: #bd3d3d;
-    --texto-azul: #1a203d;
+    --texto-azul: #2196F3;
+    --texto-azul-claro: #50a9f1;
     /* Inputs */
     --input-cinza-claro: #bdbdbd;
 
     /* Bordas */
     --borda-cinza-claro: #d4d4d4;
 }
+
+/* Header */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 7rem;
+    background-color: white;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    & .interface {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            & img {
+                width: 18rem;
+                height: 6rem;
+            }
+        }
+
+        & a {
+            font-size: 1.8rem;
+            text-decoration: none;
+            color: var(--texto-cinza-escuro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+
+            & i {
+                color: var(--texto-azul);
+            }
+        }
+
+        & .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+
+            & a {
+                padding: 1rem 2rem;
+                background-color: var(--azul);
+                border-radius: 4rem;
+                text-decoration: none;
+                color: var(--texto-branco);
+                font-size: 1.7rem;
+                transition: 0.2s linear;
+                border: 1px solid transparent;
+
+                &:hover {
+                    background-color: var(--branco);
+                    border: 1px solid var(--azul);
+                    color: var(--texto-azul);
+                }
+            }
+
+            & .voltar-inicio {
+                display: none;
+            }
+
+            & .menu-mobile {
+                display: none;
+            }
+        }
+
+        & .btn-menu {
+            display: none;
+        }
+    }
+}
+
+/* Header */
 
 /* Footer */
 
@@ -52,18 +150,87 @@ footer {
 
     & p {
         margin: 0;
-        font-size: 1.2rem;
-        color: var(--cinza-escuro);
+        font-size: 1.8rem;
+        color: var(--texto-cinza-claro);
+        text-align: center;
 
         & a {
             text-decoration: none;
-            color: var(--cinza-escuro);
-        }
-    }
+            color: var(--texto-azul);
+            transition: 0.3s linear;
 
-    & .direitos {
-        font-size: 1.3rem;
+            &:hover {
+                color: #217ac4;
+            }
+        }
     }
 }
 
 /* Footer */
+
+/* Acessibilidade para celular Header */
+@media (min-width: 0px) and (max-width:720px) {
+    header {
+        & .interface {
+            padding: 0rem 1.5rem;
+
+            & .logo {
+
+                & img {
+                    width: 15rem;
+                    height: 5rem;
+                }
+            }
+
+            & .menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background-color: var(--branco);
+                width: 100%;
+                height: 100%;
+                flex-direction: column;
+                gap: 0rem;
+                z-index: 90;
+                transition: 0.3s linear;
+
+                & a {
+                    background-color: transparent;
+                    color: var(--texto-azul);
+                    font-size: 3.5rem;
+                    width: 100%;
+
+                    &:hover {
+                        background-color: var(--branco);
+                        border: 1px solid transparent;
+                        color: var(--texto-azul);
+                    }
+                }
+
+                &.ativo {
+                    right: 0%;
+                }
+
+                & .voltar-inicio {
+                    display: block;
+                }
+
+
+                & .menu-mobile {
+                    display: block;
+                }
+            }
+
+            & .btn-menu {
+                display: block;
+                font-size: 3rem;
+                border: none;
+                background-color: transparent;
+                color: var(--texto-azul);
+                z-index: 100;
+            }
+        }
+    }
+}
+
+/* Acessibilidade para celular Header */

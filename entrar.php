@@ -8,25 +8,20 @@ include("database/funcoes.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/img/favicon_foodticket.svg" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/entrar.css">
-    <link rel="stylesheet" href="assets/css/mensagem.css">
-    <title>Sistema de Fichas | Entrar</title>
+    <link rel="stylesheet" href="assets/css/form.css">
+    <title>FoodTickets | Entrar</title>
 </head>
 
 <body>
     <div class="interface">
-        <div class="logo">
-            <div class="icon">
-                <i class="fa-solid fa-ticket"></i>
-            </div>
-            <div class="nome">
-                <p>Sistemas de Fichas</p>
-            </div>
-        </div>
-        <p class="acesse">Acesse sua conta</p>
         <form action="database/usuario/entrar.php" method="post">
             <input type="hidden" name="csrf" value="<?= gerarCSRF() ?>">
+            <div class="logo">
+                <img src="assets/img/logo_foodticket.svg" alt="Logo do site">
+                <p class="acesse">Entrar na conta</p>
+            </div>
 
             <div class="form-group">
                 <label for="email">E-mail</label>
@@ -44,13 +39,13 @@ include("database/funcoes.php");
             <button type="submit">Entrar</button>
 
             <p>Não tem uma conta? <a href="registrar.php" target="_self">Registre-se</a></p>
+            <a href="index.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar ao início</a>
         </form>
-
-        <a href="index.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar ao início</a>
     </div>
     <?php
     include("includes/mensagem.php");
     ?>
+    <script src="assets/js/valida-formulario.js"></script>
 </body>
 
 </html>

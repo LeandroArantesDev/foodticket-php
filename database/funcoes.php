@@ -104,10 +104,8 @@ function deletarItem($id, $tabela)
     }
 }
 
-function gerarEtiquetasPDF(string $nome, int $quantidade)
+function gerarEtiquetasPDF(array $itens)
 {
-    if ($quantidade < 1) $quantidade = 1;
-
     $width = 34; // caracteres por linha
     $larguraEtiqueta = 80; // mm
     $alturaEtiqueta = 30; // mm
@@ -116,21 +114,27 @@ function gerarEtiquetasPDF(string $nome, int $quantidade)
     $pdf->SetMargins(0, 0, 0);
     $pdf->SetAutoPageBreak(false);
 
-    for ($i = 0; $i < $quantidade; $i++) {
-        $pdf->AddPage();
-        $pdf->SetFont("Courier", "", 8);
+    foreach ($itens as $item) {
+        $nome = $item['nome'];
+        $quantidade = intval($item['quantidade']);
+        if ($quantidade < 1) $quantidade = 1;
 
-        $borderLine = str_repeat('*', $width);
-        $pdf->Cell(0, 3, converte($borderLine), 0, 1, "C");
+        for ($i = 0; $i < $quantidade; $i++) {
+            $pdf->AddPage();
+            $pdf->SetFont("Courier", "", 8);
 
-        printComBorda($pdf, "ARRAIA ETEC 2025", $width);
-        printComBorda($pdf, "VALE 1", $width);
-        printComBorda($pdf, $nome, $width);
+            $borderLine = str_repeat('*', $width);
+            $pdf->Cell(0, 3, converte($borderLine), 0, 1, "C");
 
-        $pdf->Cell(0, 3, converte($borderLine), 0, 1, "C");
+            printComBorda($pdf, "ARRAIA ETEC 2025", $width);
+            printComBorda($pdf, "VALE 1", $width);
+            printComBorda($pdf, $nome, $width);
+
+            $pdf->Cell(0, 3, converte($borderLine), 0, 1, "C");
+        }
     }
 
-    $pdf->Output("I", "etiqueta_" . preg_replace('/[^a-zA-Z0-9]/', '', $nome) . ".pdf");
+    $pdf->Output("I", "etiquetas_lote.pdf");
 }
 
 function converte($str)

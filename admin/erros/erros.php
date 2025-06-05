@@ -9,22 +9,14 @@ include("../../database/funcoes.php");
     <meta charset="Utd-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../../assets/img/favicon_foodticket.svg" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/css/erros.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/mensagem.css">
-    <title>Sistema de Fichas | Categorias</title>
+    <title>FoodTickets | Erros</title>
 </head>
 
 <body>
-    <header>
-        <div class="interface">
-            <a href="../dashboard.php" target="_self" class="voltar"><i class="fa-solid fa-arrow-left"></i>Voltar
-                para Dashboard</a>
-            <nav class="links">
-                <a href="../../auth/sair.php" target="_self">Sair</a>
-            </nav>
-        </div>
-    </header>
+    <?php include("../../includes/header.php"); ?>
     <main>
         <div class="interface">
             <div class="botoes">
@@ -55,10 +47,8 @@ include("../../database/funcoes.php");
                                 <th>Data do ocorrido</th>
                             </tr>
                         </thead>
-                        <?php
-                        while ($stmt->fetch()):
-                        ?>
-                            <tbody>
+                        <tbody>
+                            <?php while ($stmt->fetch()): ?>
                                 <tr>
                                     <td><?= htmlspecialchars($id) ?></td>
                                     <td><?= htmlspecialchars(buscarNomeUsuário($id_usuario)) ?></td>
@@ -66,15 +56,15 @@ include("../../database/funcoes.php");
                                     <td><?= htmlspecialchars($origem) ?></td>
                                     <td><?= htmlspecialchars($data_ocorrido) ?></td>
                                 </tr>
-                            </tbody>
+                        </tbody>
 
-                    <?php
-                        endwhile;
-                        echo '</table>';
-                    else:
-                        echo '<p class="p-erro">Nenhuma venda cadastrada!</p>';
-                    endif;
-                    ?>
+                <?php
+                            endwhile;
+                            echo '</table>';
+                        else:
+                            echo '<p class="erro">Nenhum erro cadastrado!</p>';
+                        endif;
+                ?>
                 </div>
         </div>
     </main>
@@ -85,6 +75,7 @@ include("../../database/funcoes.php");
     <?php
     include("../../includes/mensagem.php");
     ?>
+    <script src="../../assets/js/menu-mobile.js"></script>
 </body>
 
 </html>

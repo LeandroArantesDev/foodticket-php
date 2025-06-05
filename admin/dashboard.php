@@ -9,32 +9,14 @@ include("../auth/validar_sessao.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/img/favicon_foodticket.svg" type="image/x-icon">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
-    <title>Sistema de Fichas | Dashboard</title>
+    <title>FoodTickets | Dashboard</title>
 </head>
 
 <body>
-    <header>
-        <div class="interface">
-            <div class="logo">
-                <div class="icon">
-                    <i class="fa-solid fa-ticket"></i>
-                </div>
-                <div class="nome">
-                    <p>Sistemas de Fichas</p>
-                </div>
-            </div>
-
-            <nav class="links">
-                <?php if ($_SESSION["admin"] > 1): ?>
-                <a href="erros/erros.php">Erros</a>
-                <a href="usuarios/usuarios.php">Usuários</a>
-                <?php endif; ?>
-                <a href="../auth/sair.php" target="_self">Sair</a>
-            </nav>
-        </div>
-    </header>
+    <?php include("../includes/header.php"); ?>
     <main>
         <div class="interface">
             <div class="botoes">
@@ -120,19 +102,21 @@ include("../auth/validar_sessao.php");
                         $produto = $row["produto"];
                         $qVendida = $row["quantidade_vendida"];
                     ?>
-                    <div class="produtos">
-                        <p class="item"><?= htmlspecialchars($produto) ?></p>
-                        <p class="vendas"><?= htmlspecialchars($qVendida) ?> vendas</p>
-                    </div>
+                        <div class="produtos">
+                            <p class="item"><?= htmlspecialchars($produto) ?></p>
+                            <p class="vendas"><?= htmlspecialchars($qVendida) ?> vendas</p>
+                        </div>
                     <?php endwhile; ?>
                 </article>
             </div>
         </div>
     </main>
     <footer>
-        <p class="direitos">© 2025 Sistema de Ficha • Todos os direitos reservados</p>
+        <p class="direitos">© 2025 FoodTicket • Todos os direitos reservados</p>
         <p>Feito com ♥ por <a href="https://leandroarantes.com.br/" target="_blank">Leandro Arantes</a></p>
     </footer>
+
+    <script src="../assets/js/menu-mobile.js"></script>
 </body>
 
 </html>

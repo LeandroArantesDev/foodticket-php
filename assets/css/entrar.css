@@ -10,33 +10,6 @@ body {
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        gap: 2rem;
-
-        & .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-
-            & .icon {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 50%;
-                background-color: var(--branco);
-                padding: 1.2rem;
-
-                & i {
-                    font-size: 3rem;
-                    color: var(--texto-cinza-escuro);
-                }
-            }
-
-            & .nome {
-                font-size: 2rem;
-                color: var(--texto-cinza-escuro);
-            }
-        }
 
         & .acesse {
             font-size: 1.5rem;
@@ -45,49 +18,86 @@ body {
 
         & form {
             background-color: var(--branco);
-            width: 35%;
-            border-radius: 1rem;
+            width: 60%;
+            border-radius: 2rem;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
             padding: 3rem 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3rem;
+            gap: 1rem;
+            border: 1px solid var(--borda-cinza-claro);
 
-            & .form-group {
+            & .logo {
                 display: flex;
-                justify-content: space-between;
-                flex-direction: column;
-                align-items: baseline;
-                width: 100%;
-                gap: 1rem;
+                align-items: center;
+                justify-content: center;
 
-                & label {
-                    color: var(--texto-cinza-escuro);
-                    font-size: 1.4rem;
-                }
-
-                & input {
-                    border: 1px solid var(--input-cinza-claro);
-                    border-radius: 1rem;
-                    padding: 1rem;
-                    width: 96%;
+                & img {
+                    width: 18rem;
+                    height: 6rem;
                 }
             }
 
-            & button {
-                background-color: var(--cinza-escuro);
-                border: none;
-                padding: 1rem;
-                border-radius: 1rem;
-                color: var(--texto-branco);
+            & .acesse {
+                font-size: 2rem;
+                color: var(--texto-azul);
+                font-weight: bold;
+            }
+
+            & .inputs {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
                 width: 100%;
-                font-size: 1.7rem;
-                cursor: pointer;
+                gap: 1rem 2rem;
+
+                & .form-group {
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: column;
+                    align-items: baseline;
+                    width: 100%;
+                    gap: 1rem;
+
+                    & label {
+                        color: var(--texto-cinza-escuro);
+                        font-size: 1.4rem;
+                    }
+
+                    & input {
+                        border: 1px solid var(--input-cinza-claro);
+                        border-radius: 1rem;
+                        padding: 1rem;
+                        width: 96%;
+                    }
+                }
+            }
+
+
+            & button {
+                padding: 1rem 2rem;
+                background-color: var(--azul);
+                border-radius: 4rem;
+                text-decoration: none;
+                color: var(--texto-branco);
+                font-size: 1.8rem;
+                transition: 0.2s linear;
+                border: 1px solid transparent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                width: 100%;
+
+                &:hover {
+                    background-color: var(--branco);
+                    border: 1px solid var(--azul);
+                    color: var(--texto-azul);
+                }
             }
 
             & p {
-                font-size: 1.4rem;
+                font-size: 2rem;
                 color: var(--texto-cinza-claro);
 
                 & a {
