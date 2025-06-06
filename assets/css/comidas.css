@@ -80,12 +80,16 @@ main {
                     align-items: center;
                     gap: 2rem;
 
-                    & img {
+                    & .imagem {
                         width: 12rem;
                         height: 12rem;
                         border-radius: 50%;
                         object-fit: cover;
                         border: 1px solid var(--borda-cinza-claro);
+
+                        &.desativado {
+                            filter: grayscale(100%);
+                        }
                     }
 
                     & .informacoes {
@@ -97,12 +101,20 @@ main {
                             font-size: 2.3rem;
                             color: var(--texto-azul);
                             font-weight: bold;
+
+                            &.desativado {
+                                color: var(--texto-cinza-claro);
+                            }
                         }
 
                         & .preco {
                             font-size: 2rem;
                             color: var(--verde);
                             font-weight: bold;
+
+                            &.desativado {
+                                color: var(--texto-cinza-claro);
+                            }
                         }
 
                         & .descricao {
@@ -141,6 +153,14 @@ main {
 
                     & .fa-solid.fa-trash-can {
                         color: var(--texto-vermelho);
+                    }
+
+                    & .fa-eye-slash {
+                        color: var(--texto-cinza-claro);
+                    }
+
+                    & .fa-eye {
+                        color: var(--texto-cinza-claro);
                     }
 
                     &:hover {

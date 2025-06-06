@@ -126,8 +126,11 @@ main {
         }
 
         & .erro {
-            font-size: 1.8rem;
             color: var(--texto-cinza-escuro);
+            font-size: 2.5rem;
+            font-weight: bold;
+            width: 100%;
+            margin: 2rem 0rem;
         }
 
     }

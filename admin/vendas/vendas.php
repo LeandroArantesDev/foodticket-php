@@ -26,9 +26,11 @@ include("../../database/funcoes.php");
                     <h1>Gerenciar vendas</h1>
                     <p>Gerencie as vendas feitas</p>
                 </div>
-                <a href="../../database/vendas/deletartudo_venda.php"
-                    onclick="return confirm('Tem certeza que quer deletar TUDO?')">Deletar tudo<i
-                        class="fa-solid fa-trash"></i></a>
+                <?php if ($_SESSION["admin"] == 2): ?>
+                    <a href="../../database/vendas/deletartudo_venda.php"
+                        onclick="return confirm('Tem certeza que quer deletar TUDO?')">Deletar tudo<i
+                            class="fa-solid fa-trash"></i></a>
+                <?php endif; ?>
             </div>
             <?php
             $select = "SELECT id, id_usuario, id_comida, quantidade, preco_unitario, data_venda FROM vendas";
@@ -63,7 +65,7 @@ include("../../database/funcoes.php");
                                     <td><?= htmlspecialchars(formatarPreco($preco_unitario)) ?></td>
                                     <td><?= htmlspecialchars($data_venda) ?></td>
                                     <td class="buttons">
-                                        <?php if ($_SESSION["admin"] == 2): ?>
+                                        <?php if ($_SESSION["admin"] > 0): ?>
                                             <form action="../../database/vendas/deletar_venda.php" method="post"
                                                 onclick="return confirm('Tem certeza que quer deletar?')">
                                                 <input type="hidden" name="id_venda" value="<?= htmlspecialchars($id) ?>">
@@ -78,7 +80,7 @@ include("../../database/funcoes.php");
                         endwhile;
                         echo '</table>';
                     else:
-                        echo '<p class="p-erro">Nenhuma venda cadastrada!</p>';
+                        echo '<p class="erro">Nenhuma venda cadastrada!</p>';
                     endif;
                     ?>
                 </div>

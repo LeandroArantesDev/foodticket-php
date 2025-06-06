@@ -32,27 +32,29 @@ $stmt->close();
             <input type="hidden" name="id" value="<?= $id_comida ?>">
             <div class="logo">
                 <img src="../../assets/img/logo_foodticket.svg" alt="Logo do site">
-                <p class="acesse">Cadastrar categoria</p>
+                <p class="acesse">Editar categoria</p>
             </div>
             <div class="form-group">
                 <label for="nome">Nome</label>
                 <input type="text" name="nome" id="nome" placeholder="Digite o nome do alimento"
-                    value="<?= htmlspecialchars($nome) ?>" required pattern="[A-Za-zÀ-ÿ0-9\s\-]{3,}"
-                    title="Nome com pelo menos 3 caracteres. Letras, números, espaços e hífens são permitidos.">
+                    value="<?= htmlspecialchars($nome) ?>" required
+                    pattern="^(?=.{3,18}$)[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$"
+                    title="Digite um nome com pelo menos 3 letras (no máximo 18 caractéres)">
             </div>
 
             <div class="form-group">
                 <label for="descricao">Descrição</label>
                 <input type="text" name="descricao" id="descricao" placeholder="Digite a descrição do alimento"
-                    value="<?= htmlspecialchars($descricao) ?>" required pattern=".{10,}"
-                    title="Descrição com pelo menos 10 caracteres">
+                    value="<?= htmlspecialchars($descricao) ?>" required
+                    pattern="^(?=.{1,100}$)[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$"
+                    title="Ingredientes com pelo entre 1 e 100 caracteres">
             </div>
 
             <div class="form-group">
                 <label for="preco">Preço</label>
-                <input type="number" name="preco" id="preco" placeholder="Digite o preço do alimento"
-                    value="<?= htmlspecialchars($preco) ?>" required min="0.01" step="0.01"
-                    title="Informe um valor válido (mínimo: 0.01)">
+                <input type="text" name="preco" id="preco" placeholder="Digite o preço do alimento" required
+                    value="<?= htmlspecialchars($preco) ?>" pattern="^\d{1,4}(.\d{1,2})?$"
+                    title="Informe um valor válido (mínimo: 0.01 e máximo 9999.99)">
             </div>
 
             <div class="form-group">
@@ -63,10 +65,10 @@ $stmt->close();
                     $resultadoCategoria = $conexao->query($sqlCategoria);
                     while ($rowCategoria = $resultadoCategoria->fetch_assoc()):
                     ?>
-                    <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>"
-                        <?= ($id_categoria == $rowCategoria["id"]) ? "selected" : "" ?>>
-                        <?= htmlspecialchars($rowCategoria["nome"]) ?>
-                    </option>
+                        <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>"
+                            <?= ($id_categoria == $rowCategoria["id"]) ? "selected" : "" ?>>
+                            <?= htmlspecialchars($rowCategoria["nome"]) ?>
+                        </option>
                     <?php endwhile; ?>
                 </select>
             </div>
@@ -75,13 +77,14 @@ $stmt->close();
                 <label for="ingredientes">Ingredientes</label>
                 <input type="text" name="ingredientes" id="ingredientes"
                     placeholder="Digite os ingredientes do alimento" value="<?= htmlspecialchars($ingredientes) ?>"
-                    required pattern=".{5,}" title="Ingredientes com pelo menos 5 caracteres">
+                    required pattern="^(?=.{1,100}$)[A-Za-zÀ-ÖØ-öø-ÿ0-9,]+(?: [A-Za-zÀ-ÖØ-öø-ÿ0-9,]+)*$"
+                    title="Ingredientes com pelo entre 1 e 100 caracteres">
             </div>
 
             <div class="form-group">
                 <label for="imagem">URL da imagem</label>
                 <input type="url" name="imagem" id="imagem" placeholder="Coloque a URL da imagem"
-                    value="<?= htmlspecialchars($imagem) ?>" required
+                    value="<?= htmlspecialchars($imagem) ?>" required pattern="https?://[^\s/$.?#].[^\s]*"
                     title="Informe uma URL válida (ex: https://exemplo.com/imagem.jpg)">
             </div>
 

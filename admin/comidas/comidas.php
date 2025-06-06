@@ -29,7 +29,7 @@ include("../../auth/validar_sessao.php");
             </div>
             <div class="container-cards">
                 <?php
-                $select = "SELECT id, nome, descricao, preco, ingredientes, imagem FROM comidas";
+                $select = "SELECT id, nome, descricao, preco, ingredientes, imagem, status FROM comidas ORDER BY status DESC;";
                 $resultado = $conexao->query($select);
                 if ($resultado->num_rows >= 1):
                     while ($row = $resultado->fetch_assoc()):
@@ -39,30 +39,47 @@ include("../../auth/validar_sessao.php");
                         $ingredientes = $row["ingredientes"];
                         $id = $row["id"];
                         $imagem = $row["imagem"];
+                        $status = $row["status"];
 
                 ?>
                         <article class="card">
                             <div class="item">
-                                <img src="<?= (isset($imagem)) ? $imagem : '../../assets/img/img_padrao.jpg' ?>"
-                                    alt="<?= htmlspecialchars($descricao) ?>">
+                                <img class="imagem <?= ($status == 0) ? "desativado" : "" ?>"
+                                    src="<?= ($imagem) ? htmlspecialchars($imagem) : 'assets/img/img_padrao.jpg' ?>">
                                 <div class="informacoes">
-                                    <p class="nome"><?= htmlspecialchars($nome) ?></p>
+                                    <p class="nome <?= ($status == 0) ? "desativado" : "" ?>"><?= htmlspecialchars($nome) ?></p>
                                     <p class="descricao"><?= htmlspecialchars($descricao) ?></p>
                                     <p class="ingredientes"><span>Ingredientes: </span><?= htmlspecialchars($ingredientes) ?>
-                                    <p class="preco"><?= htmlspecialchars(formatarPreco($preco)) ?></p>
+                                    <p class="preco <?= ($status == 0) ? "desativado" : "" ?>">
+                                        <?= htmlspecialchars(formatarPreco($preco)) ?></p>
                                     </p>
                                 </div>
                             </div>
                             <div class="buttons">
-                                <form action="editar_comida.php" method="post">
-                                    <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
-                                    <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                                </form>
-                                <form action="../../database/comidas/deletar_comida.php" method="post"
-                                    onclick="return confirm('Tem certeza que quer deletar?')">
-                                    <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
-                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                                </form>
+                                <?php if ($_SESSION["admin"] == 2): ?>
+                                    <form action="../../database/comidas/desativar_usuario.php" method="post">
+                                        <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                        <input type="hidden" name="status_usuario" value="<?= htmlspecialchars($status) ?>">
+                                        <button type="submit"><i
+                                                class="fas <?= ($status == 0) ? "fa-eye" : "fa-eye-slash" ?>"></i></button>
+                                    </form>
+                                    <form action="editar_comida.php" method="post">
+                                        <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
+                                        <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    </form>
+                                    <form action="../../database/comidas/deletar_comida.php" method="post"
+                                        onclick="return confirm('Tem certeza que quer deletar?')">
+                                        <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
+                                        <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                    </form>
+                                <?php else: ?>
+                                    <form action="../../database/comidas/desativar_comida.php" method="post">
+                                        <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
+                                        <input type="hidden" name="status_comida" value="<?= htmlspecialchars($status) ?>">
+                                        <button type="submit"><i
+                                                class="fas <?= ($status == 0) ? "fa-eye" : "fa-eye-slash" ?>"></i></button>
+                                    </form>
+                                <?php endif; ?>
                             </div>
                         </article>
                 <?php endwhile;

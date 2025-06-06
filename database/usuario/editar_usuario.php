@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
     $admin = strip_tags(trim($_POST["admin"]));
     $senha = trim(strip_tags($_POST["senha"]));
+    $checkbox = isset($_POST["alterarsenha"]) ? trim(strip_tags($_POST["alterarsenha"])) : null;
 
     //Verificar token CSRF
     $csrf = trim(strip_tags($_POST["csrf"]));
@@ -39,20 +40,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    //Validadar senha
-    if (validarSenha($senha) == false) {
-        $_SESSION['resposta'] = "Digite uma senha com 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial";
-        header("Location: ../../admin/usuarios/usuarios.php");
-        exit;
+    // Se o checkbox de senha não estiver marcado ignorar essa validação
+    if ($checkbox === "on") {
+        //Validadar senha
+        if (validarSenha($senha) == false) {
+            $_SESSION['resposta'] = "Digite uma senha com 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial";
+            header("Location: ../../admin/usuarios/usuarios.php");
+            exit;
+        }
+        //Criptografar senha
+        $senha_hash = password_hash($senha, PASSWORD_BCRYPT);
     }
 
-    //Criptografar senha
-    $senha_hash = password_hash($senha, PASSWORD_BCRYPT);
-
     try {
-        $update = "UPDATE usuarios SET nome = ?, email = ?, admin = ?, senha = ? WHERE id = ?";
-        $stmt = $conexao->prepare($update);
-        $stmt->bind_param("ssssi", $nome, $email, $admin, $senha_hash, $id);
+        // Se o checkbox de senha não estiver marcado alterar o UPDATE
+        if ($checkbox === "on") {
+            $update = "UPDATE usuarios SET nome = ?, email = ?, admin = ?, senha = ? WHERE id = ?";
+            $stmt = $conexao->prepare($update);
+            $stmt->bind_param("ssssi", $nome, $email, $admin, $senha_hash, $id);
+        } else {
+            $update = "UPDATE usuarios SET nome = ?, email = ?, admin = ? WHERE id = ?";
+            $stmt = $conexao->prepare($update);
+            $stmt->bind_param("sssi", $nome, $email, $admin, $id);
+        }
 
         if ($stmt->execute()) {
             if ($_SESSION["id"] == $id) {

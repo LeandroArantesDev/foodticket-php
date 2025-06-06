@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const id = this.dataset.id;
             const nome = this.dataset.nome;
             const preco = parseFloat(this.dataset.preco);
-            const quantidadeInput = this.parentElement.querySelector('input[type="number"]');
+            const quantidadeInput = this.parentElement.querySelector('input[type="text"]');
             const quantidade = parseInt(quantidadeInput.value) || 1;
 
             // Verifica se já existe no carrinho

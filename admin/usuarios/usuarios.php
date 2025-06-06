@@ -1,6 +1,10 @@
 <?php
 include("../../auth/validar_sessao.php");
 include("../../database/funcoes.php");
+if (isset($_SESSION["admin"]) && $_SESSION["admin"] < 2) {
+    header("Location: ../../index.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -28,11 +32,11 @@ include("../../database/funcoes.php");
                 <a href="cadastrar_usuario.php">Adicionar<i class="fa-solid fa-plus"></i></a>
             </div>
             <?php
-            $select = "SELECT id, nome, email, admin FROM usuarios";
+            $select = "SELECT id, nome, email, admin, status FROM usuarios";
             $stmt = $conexao->prepare($select);
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($id, $nome, $email, $admin);
+            $stmt->bind_result($id, $nome, $email, $admin, $status);
             if ($stmt->num_rows >= 1):
             ?>
                 <div class="container-table">
@@ -49,21 +53,52 @@ include("../../database/funcoes.php");
                         <tbody>
                             <?php while ($stmt->fetch()): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($id) ?></td>
-                                    <td><?= htmlspecialchars($nome) ?></td>
-                                    <td><?= htmlspecialchars($email) ?></td>
-                                    <td><?= ($admin == 1) ? "Caixa" : (($admin == 2) ? "Admin" : "Usuário") ?></td>
+                                    <td class=" <?= ($status == 0) ? "desativado" : "" ?>"><?= htmlspecialchars($id) ?></td>
+                                    <td class=" <?= ($status == 0) ? "desativado" : "" ?>"><?= htmlspecialchars($nome) ?></td>
+                                    <td class=" <?= ($status == 0) ? "desativado" : "" ?>"><?= htmlspecialchars($email) ?></td>
+                                    <td class=" <?= ($status == 0) ? "desativado" : "" ?>">
+                                        <?= ($admin == 1) ? "Caixa" : (($admin == 2) ? "Admin" : "Usuário") ?></td>
                                     <td class="buttons">
-                                        <form action="editar_usuario.php" method="post">
-                                            <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
-                                            <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        </form>
-                                        <?php if ($_SESSION["id"] !== $id): ?>
-                                            <form action="../../database/usuario/deletar_usuario.php" method="post"
-                                                onclick="return confirm('Tem certeza que quer deletar?')">
+                                        <?php if (($_SESSION["nome"] === "Administrador") && ($_SESSION["id"] === 1)): ?>
+                                            <?php if ($_SESSION["id"] !== $id): ?>
+                                                <form action="../../database/usuario/desativar_usuario.php" method="post">
+                                                    <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                                    <input type="hidden" name="status_usuario" value="<?= htmlspecialchars($status) ?>">
+                                                    <button type="submit"><i
+                                                            class="fas <?= ($status == 0) ? "fa-eye" : "fa-eye-slash" ?>"></i></button>
+                                                </form>
+                                            <?php endif; ?>
+                                            <form action="editar_usuario.php" method="post">
                                                 <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
-                                                <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                                <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
                                             </form>
+                                            <?php if ($_SESSION["id"] !== $id): ?>
+                                                <form action="../../database/usuario/deletar_usuario.php" method="post"
+                                                    onclick="return confirm('Tem certeza que quer deletar?')">
+                                                    <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                                </form>
+                                            <?php endif;
+                                        else: ?>
+                                            <?php if (($_SESSION["id"] !== $id) && ($id !== 1)): ?>
+                                                <form action="../../database/usuario/desativar_usuario.php" method="post">
+                                                    <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                                    <input type="hidden" name="status_usuario" value="<?= htmlspecialchars($status) ?>">
+                                                    <button type="submit"><i
+                                                            class="fas <?= ($status == 0) ? "fa-eye" : "fa-eye-slash" ?>"></i></button>
+                                                </form>
+                                            <?php endif; ?>
+                                            <form action="editar_usuario.php" method="post">
+                                                <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                                <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            </form>
+                                            <?php if (($_SESSION["id"] !== $id) && ($id !== 1)): ?>
+                                                <form action="../../database/usuario/deletar_usuario.php" method="post"
+                                                    onclick="return confirm('Tem certeza que quer deletar?')">
+                                                    <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
+                                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                                </form>
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
@@ -86,6 +121,7 @@ include("../../database/funcoes.php");
     <?php
     include("../../includes/mensagem.php");
     ?>
+    <script src="../../assets/js/menu-mobile.js"></script>
     <script src="../../assets/js/valida-formulario.js"></script>
 </body>
 

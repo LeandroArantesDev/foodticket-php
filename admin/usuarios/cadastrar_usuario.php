@@ -28,9 +28,9 @@ include("../../database/funcoes.php");
 
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" name="nome" id="nome" placeholder="Seu nome completo" required
-                    pattern="[A-Za-zÀ-ÿ\s]{3,}"
-                    title="Digite seu nome completo (mínimo 3 letras, apenas letras e espaços)">
+                <input type="text" name="nome" id="nome" placeholder="Digite o nome do alimento" required
+                    pattern="^(?=.{3,18}$)[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$"
+                    title="Digite um nome com pelo menos 3 letras (no máximo 18 caractéres)">
             </div>
 
             <div class="form-group">

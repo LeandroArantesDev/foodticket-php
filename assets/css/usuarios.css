@@ -65,6 +65,10 @@ main {
             width: 100%;
             overflow-x: auto;
 
+            & .desativado {
+                text-decoration: line-through;
+            }
+
             & table {
                 width: 100%;
                 border-collapse: collapse;
@@ -109,6 +113,14 @@ main {
 
                         & .fa-solid.fa-trash-can {
                             color: var(--texto-vermelho);
+                        }
+
+                        & .fa-eye-slash {
+                            color: var(--texto-cinza-claro);
+                        }
+
+                        & .fa-eye {
+                            color: var(--texto-cinza-claro);
                         }
 
                         &:hover {

@@ -33,7 +33,7 @@ include("database/funcoes.php");
                 <?php endif; ?>
             </div>
             <?php
-            $selectCategoria = "SELECT id, nome FROM categorias";
+            $selectCategoria = "SELECT id, nome FROM categorias WHERE status = 1";
             $stmtCategoria = $conexao->prepare($selectCategoria);
             $stmtCategoria->execute();
             $resultCategoria = $stmtCategoria->get_result();
@@ -41,7 +41,7 @@ include("database/funcoes.php");
             if ($resultCategoria->num_rows >= 1):
                 foreach ($resultCategoria as $categoria):
                     $categoria_id = $categoria["id"];
-                    $selectComida = "SELECT id, nome, descricao, preco, imagem, ingredientes FROM comidas WHERE id_categoria = ?";
+                    $selectComida = "SELECT id, nome, descricao, preco, imagem, ingredientes FROM comidas WHERE id_categoria = ? and status = 1";
                     $stmtComida = $conexao->prepare($selectComida);
                     $stmtComida->bind_param("i", $categoria_id);
                     $stmtComida->execute();
@@ -72,8 +72,9 @@ include("database/funcoes.php");
                                     <?php if (isset($_SESSION["nome"]) && $_SESSION["admin"] > 0): ?>
                                         <div class="adicionar-carrinho">
                                             <label for="quantidadeComida<?= htmlspecialchars($id) ?>">quantidade</label>
-                                            <input type="number" name="quantidadeComida" id="quantidadeComida<?= htmlspecialchars($id) ?>"
-                                                required min="1" value="1">
+                                            <input type="text" name="quantidadeComida" id="quantidadeComida<?= htmlspecialchars($id) ?>"
+                                                required value="1" pattern="^([1-9]|1[0-9]|2[0-5])$"
+                                                title="Digite um número inteiro de 1 a 25">
                                             <button type="button" class="btn-adicionar-carrinho" data-id="<?= htmlspecialchars($id) ?>"
                                                 data-nome="<?= htmlspecialchars($nome) ?>" data-preco="<?= htmlspecialchars($preco) ?>"><i
                                                     class="fa-solid fa-cart-plus"></i>Adicionar</button>
@@ -84,7 +85,8 @@ include("database/funcoes.php");
                         </div>
             <?php
                     else:
-                        echo '<p class="p-erro">Nenhuma comida cadastrada!</p>';
+                        echo '<p class="p-erro">Nenhuma comida cadastrada na categoria!
+            </p>';
                     endif;
                 endforeach;
             else:
@@ -119,6 +121,7 @@ include("database/funcoes.php");
     ?>
     <script src="assets/js/carrinho.js"></script>
     <script src="assets/js/menu-mobile.js"></script>
+    <script src="assets/js/valida-formulario.js"></script>
 </body>
 
 </html>

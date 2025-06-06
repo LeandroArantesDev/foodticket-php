@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!empty($email) && !empty($senha)) {
         try {
             // Faz a verificação no banco de dados
-            $select = "SELECT id, nome, email, senha, admin FROM usuarios WHERE email = ?";
+            $select = "SELECT id, nome, email, senha, admin FROM usuarios WHERE email = ? and status = 1";
 
             $stmt = $conexao->prepare($select);
             $stmt->bind_param("s", $email);

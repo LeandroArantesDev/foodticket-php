@@ -97,6 +97,10 @@ main {
                             font-size: 2.3rem;
                             color: var(--texto-azul);
                             font-weight: bold;
+
+                            &.desativado {
+                                color: var(--texto-cinza-claro);
+                            }
                         }
 
                         & .preco {
@@ -142,6 +146,15 @@ main {
                     & .fa-solid.fa-trash-can {
                         color: var(--texto-vermelho);
                     }
+
+                    & .fa-eye-slash {
+                        color: var(--texto-cinza-claro);
+                    }
+
+                    & .fa-eye {
+                        color: var(--texto-cinza-claro);
+                    }
+
 
                     &:hover {
                         background-color: var(--cinza-claro);

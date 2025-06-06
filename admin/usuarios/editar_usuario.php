@@ -11,6 +11,14 @@ $stmt->execute();
 $stmt->bind_result($nome, $email, $admin);
 $stmt->fetch();
 $stmt->close();
+
+if (($nome === "Administrador") && ($email === "admin@gmail.com") && ($admin === 2)) {
+    if (($_SESSION["nome"] !== "Administrador") && ($_SESSION["id"] !== 1)) {
+        $_SESSION['resposta'] = "Você não tem acesso ao administrador!";
+        header("Location: ../../admin/usuarios/usuarios.php");
+        exit;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -34,12 +42,12 @@ $stmt->close();
                 <img src="../../assets/img/logo_foodticket.svg" alt="Logo do site">
                 <p class="acesse">Editar usuário</p>
             </div>
-
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" name="nome" id="nome" placeholder="Digite o nome do usuário"
-                    value="<?= htmlspecialchars($nome) ?>" required pattern="[A-Za-zÀ-ÿ0-9\s\-]{3,}"
-                    title="Nome com pelo menos 3 caracteres. Letras, números, espaços e hífens são permitidos.">
+                <input type="text" name="nome" id="nome" placeholder="Digite o nome do alimento" required
+                    value="<?= htmlspecialchars($nome) ?>"
+                    pattern="^(?=.{3,18}$)[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$"
+                    title="Digite um nome com pelo menos 3 letras (no máximo 18 caractéres)">
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
@@ -54,7 +62,10 @@ $stmt->close();
                     title="Insira 0 para usuário, 1 para caixa e 2 para administrador"
                     value="<?= htmlspecialchars($admin) ?>">
             </div>
-
+            <div class="form-group-alterar">
+                <input type="checkbox" name="alterarsenha" id="alterarsenha">
+                <label for="alterarsenha">Alterar a senha do usuário</label>
+            </div>
             <div class="form-group">
                 <label for="senha">Senha</label>
                 <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required
@@ -73,6 +84,26 @@ $stmt->close();
     include("../../includes/mensagem.php");
     ?>
     <script src="../../assets/js/valida-formulario.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.getElementById('alterarsenha');
+            const senhaGroup = document.getElementById('senha').closest('.form-group');
+
+            function toggleSenhaField() {
+                if (checkbox.checked) {
+                    senhaGroup.style.display = '';
+                    document.getElementById('senha').required = true;
+                } else {
+                    senhaGroup.style.display = 'none';
+                    document.getElementById('senha').required = false;
+                    document.getElementById('senha').value = '';
+                }
+            }
+
+            toggleSenhaField();
+            checkbox.addEventListener('change', toggleSenhaField);
+        });
+    </script>
 </body>
 
 </html>

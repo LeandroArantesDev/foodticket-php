@@ -29,29 +29,45 @@ include("../../auth/validar_sessao.php");
             </div>
             <div class="container-cards">
                 <?php
-                $select = "SELECT id, nome FROM categorias";
+                $select = "SELECT id, nome, status FROM categorias ORDER BY status DESC;";
                 $resultado = $conexao->query($select);
                 if ($resultado->num_rows >= 1):
                     while ($row = $resultado->fetch_assoc()):
                         $id = $row["id"];
                         $nome = $row["nome"];
+                        $status = $row["status"];
                 ?>
                         <article class="card">
                             <div class="item">
                                 <div class="informacoes">
-                                    <p class="nome"><?= htmlspecialchars($nome) ?></p>
+                                    <p class="nome <?= ($status == 0) ? "desativado" : "" ?>"><?= htmlspecialchars($nome) ?></p>
                                 </div>
                             </div>
                             <div class="buttons">
-                                <form action="editar_categoria.php" method="post">
-                                    <input type="hidden" name="id_categoria" value="<?= htmlspecialchars($id) ?>">
-                                    <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                                </form>
-                                <form action="../../database/categorias/deletar_categoria.php" method="post"
-                                    onclick="return confirm('Tem certeza que quer deletar?')">
-                                    <input type="hidden" name="id_categoria" value="<?= htmlspecialchars($id) ?>">
-                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                                </form>
+                                <?php if ($_SESSION["admin"] == 2): ?>
+                                    <form action="../../database/categorias/desativar_categoria.php" method="post">
+                                        <input type="hidden" name="id_categoria" value="<?= htmlspecialchars($id) ?>">
+                                        <input type="hidden" name="status_categoria" value="<?= htmlspecialchars($status) ?>">
+                                        <button type="submit"><i
+                                                class="fas <?= ($status == 0) ? "fa-eye" : "fa-eye-slash" ?>"></i></button>
+                                    </form>
+                                    <form action="editar_categoria.php" method="post">
+                                        <input type="hidden" name="id_categoria" value="<?= htmlspecialchars($id) ?>">
+                                        <button type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    </form>
+                                    <form action="../../database/categorias/deletar_categoria.php" method="post"
+                                        onclick="return confirm('Tem certeza que quer deletar?')">
+                                        <input type="hidden" name="id_categoria" value="<?= htmlspecialchars($id) ?>">
+                                        <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                    </form>
+                                <?php else: ?>
+                                    <form action="../../database/categorias/desativar_categoria.php" method="post">
+                                        <input type="hidden" name="id_categoria" value="<?= htmlspecialchars($id) ?>">
+                                        <input type="hidden" name="status_categoria" value="<?= htmlspecialchars($status) ?>">
+                                        <button type="submit"><i
+                                                class="fas <?= ($status == 0) ? "fa-eye" : "fa-eye-slash" ?>"></i></button>
+                                    </form>
+                                <?php endif; ?>
                             </div>
                         </article>
                 <?php
