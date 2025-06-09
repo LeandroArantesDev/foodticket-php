@@ -35,7 +35,7 @@ include("../../database/funcoes.php");
             <div class="form-group">
                 <label for="descricao">Descrição</label>
                 <input type="text" name="descricao" id="descricao" placeholder="Digite a descrição do alimento" required
-                    pattern="^(?=.{1,100}$)[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$"
+                    pattern="^(?=.{1,100}$)[A-Za-zÀ-ÖØ-öø-ÿ0-9,]+(?: [A-Za-zÀ-ÖØ-öø-ÿ0-9,]+)*$"
                     title="Ingredientes com pelo entre 1 e 100 caracteres">
             </div>
 
@@ -54,9 +54,9 @@ include("../../database/funcoes.php");
                     $resultadoCategoria = $conexao->query($sqlCategoria);
                     while ($rowCategoria = $resultadoCategoria->fetch_assoc()):
                     ?>
-                    <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>">
-                        <?= htmlspecialchars($rowCategoria["nome"]) ?>
-                    </option>
+                        <option value="<?= htmlspecialchars($rowCategoria["id"]) ?>">
+                            <?= htmlspecialchars($rowCategoria["nome"]) ?>
+                        </option>
                     <?php endwhile; ?>
                 </select>
             </div>

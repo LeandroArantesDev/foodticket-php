@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //Validação em tempo real do campo descrição;
     document.querySelectorAll('input[name="descricao"]').forEach(function (input) {
         input.addEventListener("input", function () {
-            this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ !?,.]/g, "").slice(0, 100);
+            this.value = this.value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ0-9 !?,.]/g, "").slice(0, 100);
         })
     })
 
