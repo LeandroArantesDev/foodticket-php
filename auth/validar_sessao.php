@@ -12,15 +12,15 @@ if (!isset($_SESSION["id"]) and !isset($_SESSION["nome"]) and !isset($_SESSION["
 }
 
 $email = $_SESSION["email"];
-$select = "SELECT id, nome, email, admin FROM usuarios WHERE email = ?";
+$select = "SELECT id, nome, email, admin, status FROM usuarios WHERE email = ?";
 $stmt = $conexao->prepare($select);
 $stmt->bind_param("s", $email);
 
 if ($stmt->execute()) {
-    $stmt->bind_result($id, $nome, $email_db, $admin);
+    $stmt->bind_result($id, $nome, $email_db, $admin, $status);
     $stmt->fetch();
 
-    if (($id === null) || ($nome === null) || ($email_db === null) || ($admin === null)) {
+    if ((($id === null) || ($nome === null) || ($email_db === null) || ($admin === null)) || $status = 0) {
         session_unset();
         session_destroy();
         header("Location: ../../database/usuario/entrar.php");
