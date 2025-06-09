@@ -25,7 +25,9 @@ include("../../auth/validar_sessao.php");
                     <h1>Gerenciar categorias</h1>
                     <p>Gerencie as categorias dos itens do cardápio</p>
                 </div>
-                <a href="cadastrar_categoria.php">Adicionar<i class="fa-solid fa-plus"></i></a>
+                <?php if ($_SESSION["admin"] == 2): ?>
+                    <a href="cadastrar_categoria.php">Adicionar<i class="fa-solid fa-plus"></i></a>
+                <?php endif; ?>
             </div>
             <div class="container-cards">
                 <?php
