@@ -1,7 +1,6 @@
 <?php
-require_once("../../database/conexao.php");
-include("../../auth/validar_sessao.php");
 include("../../database/funcoes.php");
+include("../../auth/validar_sessao.php");
 $id_comida = strip_tags(trim($_POST["id_comida"]));
 
 $select = "SELECT nome, descricao, preco, ingredientes, imagem, id_categoria FROM comidas WHERE id = ?";

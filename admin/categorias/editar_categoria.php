@@ -1,7 +1,6 @@
 <?php
-require_once("../../database/conexao.php");
-include("../../auth/validar_sessao.php");
 include("../../database/funcoes.php");
+include("../../auth/validar_sessao.php");
 $id_categoria = strip_tags(trim($_POST["id_categoria"]));
 
 $select = "SELECT nome FROM categorias WHERE id = ?";
