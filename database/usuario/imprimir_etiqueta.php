@@ -1,5 +1,4 @@
 <?php
-require_once("../conexao.php");
 include("../funcoes.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["itens"])) {

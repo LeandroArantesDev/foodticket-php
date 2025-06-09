@@ -1,7 +1,6 @@
 <?php
-include("../../database/conexao.php");
-include("../../auth/validar_sessao.php");
 include("../../database/funcoes.php");
+include("../../auth/validar_sessao.php");
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

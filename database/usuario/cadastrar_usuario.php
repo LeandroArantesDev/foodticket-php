@@ -1,5 +1,4 @@
 <?php
-include_once("../conexao.php");
 include("../funcoes.php");
 
 if ($_SERVER["REQUEST_METHOD"] === 'POST') {

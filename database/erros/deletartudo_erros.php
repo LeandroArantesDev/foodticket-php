@@ -1,5 +1,4 @@
 <?php
-require_once("../conexao.php");
 include("../funcoes.php");
 
 $delete = "DELETE FROM erros WHERE 1";
