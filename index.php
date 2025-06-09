@@ -1,5 +1,21 @@
 <?php
 include("database/funcoes.php");
+if (isset($_SESSION["id"], $_SESSION["nome"], $_SESSION["email"])) {
+    $email = $_SESSION["email"];
+    $select = "SELECT id, nome, email, admin FROM usuarios WHERE email = ?";
+    $stmt = $conexao->prepare($select);
+    $stmt->bind_param("s", $email);
+
+    if ($stmt->execute()) {
+        $stmt->bind_result($id, $nome, $email_db, $admin);
+        $stmt->fetch();
+        $_SESSION["id"] = $id;
+        $_SESSION["nome"] = $nome;
+        $_SESSION["email"] = $email_db;
+        $_SESSION["admin"] = $admin;
+    }
+    $stmt->close();
+}
 ?>
 <html>
 <!DOCTYPE html>

@@ -32,7 +32,7 @@ if ($stmt->execute()) {
         $_SESSION["admin"] = $admin;
 
         if (isset($_SESSION["admin"]) && $_SESSION["admin"] < 1) {
-            header("Location: ../index.php");
+            header("Location: ../../index.php");
             exit();
         }
     }

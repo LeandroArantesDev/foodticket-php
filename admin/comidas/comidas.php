@@ -57,9 +57,9 @@ include("../../auth/validar_sessao.php");
                             </div>
                             <div class="buttons">
                                 <?php if ($_SESSION["admin"] == 2): ?>
-                                    <form action="../../database/comidas/desativar_usuario.php" method="post">
-                                        <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($id) ?>">
-                                        <input type="hidden" name="status_usuario" value="<?= htmlspecialchars($status) ?>">
+                                    <form action="../../database/comidas/desativar_comida.php" method="post">
+                                        <input type="hidden" name="id_comida" value="<?= htmlspecialchars($id) ?>">
+                                        <input type="hidden" name="status_comida" value="<?= htmlspecialchars($status) ?>">
                                         <button type="submit"><i
                                                 class="fas <?= ($status == 0) ? "fa-eye" : "fa-eye-slash" ?>"></i></button>
                                     </form>
