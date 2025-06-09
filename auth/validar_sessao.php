@@ -30,6 +30,11 @@ if ($stmt->execute()) {
         session_destroy();
         header("Location: /entrar.php");
         exit();
+    } else {
+        $_SESSION["id"] = $id;
+        $_SESSION["nome"] = $nome;
+        $_SESSION["email"] = $email_db;
+        $_SESSION["admin"] = $admin;
     }
 }
 $stmt->close();
