@@ -7,12 +7,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 if (!isset($_SESSION["id"]) and !isset($_SESSION["nome"]) and !isset($_SESSION["email"])) {
     session_unset();
     session_destroy();
-    header("Location: /entrar.php");
-    exit();
-}
-
-if (isset($_SESSION["admin"]) && $_SESSION["admin"] < 1) {
-    header("Location: /index.php");
+    header("Location: ../../database/usuario/entrar.php");
     exit();
 }
 
@@ -28,13 +23,18 @@ if ($stmt->execute()) {
     if (($id === null) || ($nome === null) || ($email_db === null) || ($admin === null)) {
         session_unset();
         session_destroy();
-        header("Location: /entrar.php");
+        header("Location: ../../database/usuario/entrar.php");
         exit();
     } else {
         $_SESSION["id"] = $id;
         $_SESSION["nome"] = $nome;
         $_SESSION["email"] = $email_db;
         $_SESSION["admin"] = $admin;
+
+        if (isset($_SESSION["admin"]) && $_SESSION["admin"] < 1) {
+            header("Location: ../index.php");
+            exit();
+        }
     }
 }
 $stmt->close();
