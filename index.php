@@ -13,6 +13,13 @@ if (isset($_SESSION["id"], $_SESSION["nome"], $_SESSION["email"])) {
         $_SESSION["nome"] = $nome;
         $_SESSION["email"] = $email_db;
         $_SESSION["admin"] = $admin;
+
+        if ($status === 0) {
+            session_unset();
+            session_destroy();
+            header("Location: index.php");
+            exit();
+        }
     }
     $stmt->close();
 }
