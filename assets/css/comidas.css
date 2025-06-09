@@ -189,7 +189,7 @@ main {
 /* Main */
 
 /* Acessibilidade para celular */
-@media (min-width: 0px) and (max-width:720px) {
+@media (min-width: 501px) and (max-width:720px) {
     main {
         padding-bottom: 3rem;
 
@@ -207,6 +207,38 @@ main {
             & .container-cards {
 
                 & .card {
+                    & .item {
+                        & img {
+                            width: 10rem;
+                            height: 10rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 0px) and (max-width:500px) {
+    main {
+        padding-bottom: 3rem;
+
+        & .interface {
+            padding: 0rem 2rem;
+
+            & .botoes {
+                & .nome {
+                    & p {
+                        display: none;
+                    }
+                }
+            }
+
+            & .container-cards {
+
+                & .card {
+                    flex-direction: column;
+
                     & .item {
                         & img {
                             width: 10rem;

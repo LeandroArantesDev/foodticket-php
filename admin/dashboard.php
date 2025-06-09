@@ -94,7 +94,8 @@ include("../auth/validar_sessao.php");
                 <article class="grid-item row-2">
                     <div class="titulo-artique-group">
                         <p class="titulo-article">Resumo de vendas</p>
-                        <a href="vendas/vendas.php">Gerenciar vendas<i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="vendas/vendas.php"><span>Gerenciar vendas</span><i
+                                class="fa-solid fa-arrow-right"></i></a>
                     </div>
                     <?php
                     $select = "SELECT c.nome AS produto, SUM(v.quantidade) AS quantidade_vendida FROM vendas v JOIN comidas c ON v.id_comida = c.id GROUP BY v.id_comida ORDER BY quantidade_vendida DESC LIMIT 5";

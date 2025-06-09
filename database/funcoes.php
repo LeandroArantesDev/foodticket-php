@@ -1,5 +1,5 @@
 <?php
-require_once("conexao.php");
+include("conexao.php");
 require_once(__DIR__ . '/../fpdf/fpdf.php');
 
 function buscarComida()

@@ -324,6 +324,29 @@ aside {
 /* Carrinho */
 
 /* Acessibilidade para celular */
+@media (min-width: 501px) and (max-width:720px) {
+    main {
+        padding-bottom: 3rem;
+
+        & .interface {
+            padding: 0rem 1.5rem;
+
+            & .botoes {
+                & a {
+                    display: none;
+                }
+            }
+
+            & .container-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+
+        }
+    }
+}
+
 @media (min-width: 0px) and (max-width:720px) {
     main {
         padding-bottom: 3rem;
@@ -340,6 +363,10 @@ aside {
             & .container-cards {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+
+                & .card {
+                    flex-direction: column;
+                }
             }
 
 

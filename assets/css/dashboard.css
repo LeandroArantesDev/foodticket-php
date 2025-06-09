@@ -253,6 +253,12 @@ main {
 
                 & .grid-item.row-2 {
                     grid-column: span 1;
+
+                    & a {
+                        & span {
+                            display: none;
+                        }
+                    }
                 }
             }
 

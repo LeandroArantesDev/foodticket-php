@@ -169,7 +169,7 @@ footer {
 /* Footer */
 
 /* Acessibilidade para celular Header */
-@media (min-width: 0px) and (max-width:720px) {
+@media (min-width: 0px) and (max-width:1220px) {
     header {
         & .interface {
             padding: 0rem 1.5rem;

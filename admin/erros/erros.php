@@ -1,6 +1,6 @@
 <?php
-include("../../auth/validar_sessao.php");
 include("../../database/funcoes.php");
+include("../../auth/validar_sessao.php");
 if (isset($_SESSION["admin"]) && $_SESSION["admin"] < 2) {
     header("Location: ../../index.php");
     exit();

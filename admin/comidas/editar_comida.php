@@ -46,7 +46,7 @@ $stmt->close();
                 <label for="descricao">Descrição</label>
                 <input type="text" name="descricao" id="descricao" placeholder="Digite a descrição do alimento"
                     value="<?= htmlspecialchars($descricao) ?>" required
-                    pattern="^(?=.{1,100}$)[A-Za-zÀ-ÖØ-öø-ÿ0-9,]+(?: [A-Za-zÀ-ÖØ-öø-ÿ0-9,]+)*$"
+                    pattern="^(?=.{1,100}$)[A-Za-zÀ-ÖØ-öø-ÿ0-9 !?,.]+$"
                     title="Ingredientes com pelo entre 1 e 100 caracteres">
             </div>
 
