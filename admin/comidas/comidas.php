@@ -86,7 +86,7 @@ include("../../auth/validar_sessao.php");
                         </article>
                 <?php endwhile;
                 else:
-                    echo '<p class="erro">Nenhuma comida cadastrada!</p>';
+                    echo '<p class="p-erro">Nenhuma comida cadastrada!</p>';
                 endif;
                 ?>
             </div>

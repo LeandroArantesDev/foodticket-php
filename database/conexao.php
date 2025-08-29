@@ -29,7 +29,7 @@ function loadEnv($path)
 }
 loadEnv(__DIR__ . '/../senhas.env');
 
-if ($_SERVER['HTTP_HOST'] == 'localhost:8000') {
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
     $host = 'localhost';
     $username = 'root';
     $password = '';

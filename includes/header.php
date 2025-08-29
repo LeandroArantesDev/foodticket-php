@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['HTTP_HOST'] == 'localhost') {
-    define('BASE_URL', '/FOODTICKET/');
+    define('BASE_URL', '/foodticket/');
 } else {
     define('BASE_URL', '/');
 } ?>

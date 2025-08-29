@@ -75,7 +75,7 @@ include("../../auth/validar_sessao.php");
                 <?php
                     endwhile;
                 else:
-                    echo '<p class="nenhum-cadastro">Nenhuma categoria cadastrada!</p>';
+                    echo '<p class="p-erro">Nenhuma categoria cadastrada!</p>';
                 endif;
                 ?>
             </div>

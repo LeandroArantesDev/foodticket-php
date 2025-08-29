@@ -1,6 +1,7 @@
 <?php
 include("../../database/funcoes.php");
 include("../../auth/validar_sessao.php");
+date_default_timezone_set('America/Sao_Paulo');
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -55,6 +56,7 @@ include("../../auth/validar_sessao.php");
                         </thead>
                         <?php
                         while ($stmt->fetch()):
+                            $data_formatada = date("H:i:s d/m/Y", strtotime($data_venda));
                         ?>
                             <tbody>
                                 <tr>
@@ -63,7 +65,7 @@ include("../../auth/validar_sessao.php");
                                     <td><?= htmlspecialchars(buscarNomeComida($id_comida)) ?></td>
                                     <td><?= htmlspecialchars($quantidade) ?></td>
                                     <td><?= htmlspecialchars(formatarPreco($preco_unitario)) ?></td>
-                                    <td><?= htmlspecialchars($data_venda) ?></td>
+                                    <td><?= htmlspecialchars($data_formatada) ?></td>
                                     <td class="buttons">
                                         <?php if ($_SESSION["admin"] > 0): ?>
                                             <form action="../../database/vendas/deletar_venda.php" method="post"
