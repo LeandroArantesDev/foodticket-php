@@ -4,6 +4,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
+// Setei o fusohorario do Brasil;
+date_default_timezone_set('America/Sao_Paulo');
+
 function loadEnv($path)
 {
     if (!file_exists($path)) {

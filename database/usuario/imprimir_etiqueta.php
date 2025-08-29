@@ -17,14 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["itens"])) {
         $nome_comida = strip_tags($item["nome"]);
         $preco_comida = floatval($item["preco"]);
         $quantidade_comida = intval($item["quantidade"]);
+        $data_venda = date('Y-m-d H:i:s');
 
         // Salva a venda
         try {
-            $insert = "INSERT INTO vendas (id_usuario, id_comida, quantidade, preco_unitario) VALUES (?,?,?,?)";
+            $insert = "INSERT INTO vendas (id_usuario, id_comida, quantidade, preco_unitario, data_venda) VALUES (?,?,?,?,?)";
             $stmt = $conexao->prepare($insert);
-
             if ($stmt) {
-                $stmt->bind_param("iiid", $id_usuario, $id_comida, $quantidade_comida, $preco_comida);
+                $stmt->bind_param("iiids", $id_usuario, $id_comida, $quantidade_comida, $preco_comida, $data_venda);
                 $stmt->execute();
                 $stmt->close();
             }
