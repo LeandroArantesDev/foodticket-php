@@ -126,7 +126,7 @@ function gerarEtiquetasPDF(array $itens)
             $borderLine = str_repeat('*', $width);
             $pdf->Cell(0, 3, converte($borderLine), 0, 1, "C");
 
-            printComBorda($pdf, "GAROTO ETEC 2025", $width);
+            printComBorda($pdf, "ARRAIA ETEC 2026", $width);
             printComBorda($pdf, "VALE 1", $width);
             printComBorda($pdf, $nome, $width);
 
