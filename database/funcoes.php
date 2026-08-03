@@ -117,7 +117,8 @@ function gerarEtiquetasPDF(array $itens)
     foreach ($itens as $item) {
         $nome = $item['nome'];
         $quantidade = intval($item['quantidade']);
-        if ($quantidade < 1) $quantidade = 1;
+        if ($quantidade < 1)
+            $quantidade = 1;
 
         for ($i = 0; $i < $quantidade; $i++) {
             $pdf->AddPage();
@@ -126,7 +127,7 @@ function gerarEtiquetasPDF(array $itens)
             $borderLine = str_repeat('*', $width);
             $pdf->Cell(0, 3, converte($borderLine), 0, 1, "C");
 
-            printComBorda($pdf, "ARRAIA ETEC 2026", $width);
+            printComBorda($pdf, "FAMILIA JMJ", $width);
             printComBorda($pdf, "VALE 1", $width);
             printComBorda($pdf, $nome, $width);
 

@@ -5,7 +5,9 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(240, 242, 245, 0.92);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         z-index: 9999;
         display: flex;
         align-items: center;
@@ -13,12 +15,12 @@
     }
 
     .loader-ball {
-        width: 48px;
-        height: 48px;
-        border: 6px solid var(--azul);
-        border-top: 6px solid var(--branco);
+        width: 44px;
+        height: 44px;
+        border: 4px solid rgba(108, 92, 231, 0.15);
+        border-top: 4px solid #6c5ce7;
         border-radius: 50%;
-        animation: spin 1s linear infinite;
+        animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
 
     @keyframes spin {

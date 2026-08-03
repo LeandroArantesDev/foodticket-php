@@ -34,13 +34,13 @@ date_default_timezone_set('America/Sao_Paulo');
                 <?php endif; ?>
             </div>
             <?php
-            $select = "SELECT id, id_usuario, id_comida, quantidade, preco_unitario, data_venda FROM vendas";
+            $select = "SELECT id, id_usuario, id_comida, quantidade, preco_unitario, data_venda FROM vendas ORDER BY data_venda DESC";
             $stmt = $conexao->prepare($select);
             $stmt->execute();
             $stmt->store_result();
             $stmt->bind_result($id, $id_usuario, $id_comida, $quantidade, $preco_unitario, $data_venda);
             if ($stmt->num_rows >= 1):
-            ?>
+                ?>
                 <div class="container-table">
                     <table>
                         <thead>
@@ -57,7 +57,7 @@ date_default_timezone_set('America/Sao_Paulo');
                         <?php
                         while ($stmt->fetch()):
                             $data_formatada = date("H:i:s d/m/Y", strtotime($data_venda));
-                        ?>
+                            ?>
                             <tbody>
                                 <tr>
                                     <td><?= htmlspecialchars($id) ?></td>
@@ -78,14 +78,14 @@ date_default_timezone_set('America/Sao_Paulo');
                                 </tr>
                             </tbody>
 
-                    <?php
+                            <?php
                         endwhile;
                         echo '</table>';
-                    else:
-                        echo '<p class="erro">Nenhuma venda cadastrada!</p>';
-                    endif;
-                    ?>
-                </div>
+            else:
+                echo '<p class="erro">Nenhuma venda cadastrada!</p>';
+            endif;
+            ?>
+            </div>
         </div>
     </main>
     <footer>
